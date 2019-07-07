@@ -1,0 +1,8 @@
+[package]
+name = "rustadio"
+version = "0.1.0"
+authors = ["tango <cteters@pdx.edu>"]
+edition = "2018"
+
+[dependencies]
+rodio = "0.9.0"
