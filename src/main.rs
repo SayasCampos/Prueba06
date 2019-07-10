@@ -17,42 +17,26 @@ use rocket::response::NamedFile;
 use rocket::http::RawStr;
 
 
-/*
 
-    let device = rodio::default_output_device().unwrap();
-    let file = std::fs::File::open("victory.mp3").unwrap();
-    let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
-    victory.set_volume(1.0);
-    println!("victory!");
-
-#[derive(Debug, FromForm)]
-struct FormInput {
-    a: String,
-    b: bool,
-}
-
-
-#[post("/", data = "<play>")]
-fn play(play: Result<Form<FormInput>, FormError>) -> String {
-    match play {
-        Ok(form) => format!("{:?}", &*form),
-        Err(FormDataError::Io(_)) => format!("Form input was invalid UTF-8"),
-        Err(FormDataError::Malformed(f)) | Err(FormDataError::Parse(_, f)) => {
-            format!("Invalid form input: {}", f)
-        }
-    }
-}
-*/
-
-#[post("/play")]
-fn play() {
+#[post("/play/victory")]
+fn play_victory() {
     let device = rodio::default_output_device().unwrap();
     let file = std::fs::File::open("examples/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
-    victory.set_volume(100.0);
+    victory.set_volume(1.0);
     println!("VICTORY\n");
+    NamedFile::open("static/index.html");
 }
 
+#[post("/play/jiggly")]
+fn play_jiggly() {
+    let device = rodio::default_output_device().unwrap();
+    let file = std::fs::File::open("examples/jiggly.mp3").unwrap();
+    let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
+    victory.set_volume(1.0);
+    println!("JIGGLY\n");
+    thread::sleep(Duration::from_millis(8000));
+}
 
 #[get("/")]
 fn index() -> io::Result<NamedFile> {
@@ -60,7 +44,7 @@ fn index() -> io::Result<NamedFile> {
 }
 
 fn rocket() -> rocket::Rocket {
-    rocket::ignite().mount("/", routes![index, play])
+    rocket::ignite().mount("/", routes![index, play_victory, play_jiggly, backtoindex])
 }
 
 fn main() {
