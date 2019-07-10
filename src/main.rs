@@ -49,9 +49,10 @@ fn play() {
     let device = rodio::default_output_device().unwrap();
     let file = std::fs::File::open("examples/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
-    victory.set_volume(1.0);
-    println!("Victory!");
+    victory.set_volume(100.0);
+    println!("VICTORY\n");
 }
+
 
 #[get("/")]
 fn index() -> io::Result<NamedFile> {
