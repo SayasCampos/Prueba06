@@ -26,6 +26,7 @@ fn play_victory() {
     victory.set_volume(1.0);
     println!("VICTORY\n");
     NamedFile::open("static/index.html");
+    thread::sleep(Duration::from_millis(4500));
 }
 
 #[post("/play/jiggly")]
@@ -44,7 +45,7 @@ fn index() -> io::Result<NamedFile> {
 }
 
 fn rocket() -> rocket::Rocket {
-    rocket::ignite().mount("/", routes![index, play_victory, play_jiggly, backtoindex])
+    rocket::ignite().mount("/", routes![index, play_victory, play_jiggly])
 }
 
 fn main() {
