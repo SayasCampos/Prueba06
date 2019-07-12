@@ -39,3 +39,12 @@ Run `cargo test` to do some simple testing.
 This program is licensed under the "MIT License".  Please
 see the file `LICENSE` in the source distribution of this
 software for license terms.
+
+# Contact
+
+[Max Jasper](https://github.com/maxjaspersmiley)
+
+[Paul Hubbard](https://github.com/cteters)
+
+[Christopher Teters](https://github.com/phubbard67)
+
