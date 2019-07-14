@@ -18,7 +18,7 @@ use rocket::http::RawStr;
 
 
 
-#[post("/play/victory")]
+#[get("/v", rank=2)]
 fn play_victory() {
     let device = rodio::default_output_device().unwrap();
     let file = std::fs::File::open("examples/victory.mp3").unwrap();
@@ -29,7 +29,7 @@ fn play_victory() {
     thread::sleep(Duration::from_millis(4500));
 }
 
-#[post("/play/jiggly")]
+#[get("/j", rank=1)]
 fn play_jiggly() {
     let device = rodio::default_output_device().unwrap();
     let file = std::fs::File::open("examples/jiggly.mp3").unwrap();
@@ -39,7 +39,7 @@ fn play_jiggly() {
     thread::sleep(Duration::from_millis(8000));
 }
 
-#[get("/")]
+#[get("/", rank=3)]
 fn index() -> io::Result<NamedFile> {
     NamedFile::open("static/index.html")
 }
