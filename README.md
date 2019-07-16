@@ -1,5 +1,9 @@
 # rustadio
 
+Christopher Teters <cteters@pdx.edu>
+Max Smiley <smiley6@pdx.edu>
+Paul Hubbard <phubbard@pdx.edu>
+
 This program is in development toward becoming a
 simple webapp based media player that can be used
 to play common digital audio coding formats such as
