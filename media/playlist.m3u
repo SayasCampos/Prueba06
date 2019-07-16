@@ -1,0 +1,301 @@
+#EXTM3U
+#EXTINF:-1,Radio Paradise (320k)
+http://stream-uk1.radioparadise.com/aac-320
+
+#EXTINF:-1,2ROCK
+http://streaming.radionomy.com/2ROCK
+
+#EXTINF:-1,SomaFM Groove Salad
+http://ice3.somafm.com/groovesalad-128-mp3
+
+#EXTINF:-1,Deep House Lounge
+http://198.15.94.34:8006/stream
+
+#EXTINF:-1,Jazz Radio Blues
+http://jazzblues.ice.infomaniak.ch/jazzblues-high.mp3
+
+#EXTINF:-1,SWR 3
+http://swr-swr3-live.cast.addradio.de/swr/swr3/live/mp3/128/stream.mp3
+
+#EXTINF:-1,.977 Classic Rock
+http://20703.live.streamtheworld.com:3690/977_CLASSROCK_SC
+
+#EXTINF:-1,BBC Radio 1
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
+
+#EXTINF:-1,Europa Plus
+http://ep256.hostingradio.ru:8052/europaplus256.mp3
+
+#EXTINF:-1,ERIKA1
+http://streaming.radionomy.com/ERiKA1
+
+#EXTINF:-1,Beatles Radio
+http://www.beatlesradio.com:8000/stream/1/
+
+#EXTINF:-1,Deutschlandfunk [MP3 128k]
+http://st01.dlf.de/dlf/01/128/mp3/stream.mp3
+
+#EXTINF:-1,WDR 5
+http://wdr-wdr5-live.icecast.wdr.de/wdr/wdr5/live/mp3/128/stream.mp3
+
+#EXTINF:-1,87.8 UCFM
+http://stream.ucfm.com.au:8000/listen.mp3
+
+#EXTINF:-1,France Info
+http://direct.franceinfo.fr/live/franceinfo-midfi.mp3
+
+#EXTINF:-1,1LIVE
+http://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3
+
+#EXTINF:-1,BBC Radio 4
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p
+
+#EXTINF:-1,RMF FM
+http://195.150.20.9/RMFFM48
+
+#EXTINF:-1,Hirschmilch Radio Prog-House
+https://hirschmilch.de:7001/prog-house.mp3
+
+#EXTINF:-1,France Inter
+http://chai5she.cdn.dvmr.fr:80/franceinter-midfi.mp3
+
+#EXTINF:-1,Relax FM
+http://ic2.101.ru:8000/v13_1?userid=0&setst=0pqqvl0cogtb2db382p7rtpn26
+
+#EXTINF:-1,Rock Antenne - Heavy Metal
+http://mp3channels.webradio.rockantenne.de/heavy-metal
+
+#EXTINF:-1,FIP
+http://chai5she.cdn.dvmr.fr:80/fip-midfi.mp3
+
+#EXTINF:-1,8bitFM
+http://8bit.fm:8000/live
+
+#EXTINF:-1,RTL
+http://streaming.radio.rtl.fr/rtl-1-44-128
+
+#EXTINF:-1,Nashe Radio
+http://nashe1.hostingradio.ru/nashe-128.mp3
+
+#EXTINF:-1,Deutschlandfunk Nova
+http://st03.dlf.de/dlf/03/104/ogg/stream.ogg
+
+#EXTINF:-1,Медляк FM
+http://online.radiorecord.ru:8102/mdl_128
+
+#EXTINF:-1,NDR Info (Schleswig-Holstein)
+http://www.ndr.de/resources/metadaten/audio/m3u/ndrinfo_sh.m3u
+
+#EXTINF:-1,Radio Mirchi
+http://peridot.streamguys.com:7150/Mirchi
+
+#EXTINF:-1,Europe 1
+http://e1-live-mp3-128.scdn.arkena.com/europe1.mp3
+
+#EXTINF:-1,Наше радио Nashe Radio
+http://nashe1.hostingradio.ru/nashe-128.mp3
+
+#EXTINF:-1,NDR 2
+http://ndr-ndr2-niedersachsen.cast.addradio.de/ndr/ndr2/niedersachsen/mp3/128/stream.mp3
+
+#EXTINF:-1,Radio BOB!
+http://bob.hoerradar.de/radiobob-live-mp3-hq?sABC=59p66q9n%230%23rnoopr590o2qqrp5qsq2s8p24q12pp2n%23zrqvncynlreobo&amsparams=playerid:mediaplayerbob;skey:1506176410
+
+#EXTINF:-1,BBC Radio 2
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p
+
+#EXTINF:-1,Antenne Bayern
+http://mp3channels.webradio.antenne.de:80/antenne
+
+#EXTINF:-1,Cryosleep
+http://streams.echoesofbluemars.org:8000/cryosleep
+
+#EXTINF:-1,Avtoradio (Moskva, Rossiya (124)) - 101.ru
+http://ic2.101.ru:8000/v3_1
+
+#EXTINF:-1,Chill Out World
+http://listen.radionomy.com/chilloutworld
+
+#EXTINF:-1,Cadena SER
+http://19093.live.streamtheworld.com:3690/CADENASER_SC
+
+#EXTINF:-1,RFE/RL Radio Farda
+http://rfe21.akacast.akamaistream.net/7/751/437779/v1/ibb.akacast.akamaistream.net/rfe21
+
+#EXTINF:-1,BBC Radio 5 Live
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_p
+
+#EXTINF:-1,Los 40 Principales
+http://19643.live.streamtheworld.com:3690/LOS40_SC
+
+#EXTINF:-1,.977 80s
+http://playerservices.streamtheworld.com/pls/977_80.pls
+
+#EXTINF:-1,Ambient Sleeping Pill
+http://radio.stereoscenic.com/asp-h
+
+#EXTINF:-1,Deutschlandfunk  [MP3 64kbit/s]
+http://www.deutschlandradio.de/streaming/dlf_lq_mp3.m3u
+
+#EXTINF:-1,BBC Radio 6 Music
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p
+
+#EXTINF:-1,BBC Radio 3
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p
+
+#EXTINF:-1,Radio ZET
+http://antgre-01.cdn.eurozet.pl:8000/;stream
+
+#EXTINF:-1,Deutschlandfunk  [OGG Vorbis 33kbit/s]
+http://www.deutschlandradio.de/streaming/dlf_lq_ogg.m3u
+
+#EXTINF:-1,Radio City (india) - Hindi
+http://prclive1.listenon.in:9960/
+
+#EXTINF:-1,Onda Cero
+http://icecast-streaming.nice264.com/ondacero
+
+#EXTINF:-1,Радио Маяк (Radio Mayak)
+http://icecast.vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps
+
+#EXTINF:-1,Radio Swiss Jazz
+http://stream.srg-ssr.ch/m/rsj/mp3_128
+
+#EXTINF:-1,RMC
+http://chai5she.cdn.dvmr.fr:80/rmcinfo
+
+#EXTINF:-1,Bassdrive
+http://bassdrive.com/bassdrive.m3u
+
+#EXTINF:-1,ROCK FM
+http://nashe1.hostingradio.ru/rock-128.mp3
+
+#EXTINF:-1,Classic FM UK
+http://ice-the.musicradio.com:80/ClassicFMMP3
+
+#EXTINF:-1,Chromanova - Chillout
+http://176.31.123.212:8192/;
+
+#EXTINF:-1,Reggae Radio Rastamusic.com
+http://ais.rastamusic.com/rastamusic.mp3.m3u
+
+#EXTINF:-1,ByteFM
+https://www.byte.fm/stream/bytefm.m3u
+
+#EXTINF:-1,BBC World Service (AAC)
+http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_low/llnw/bbc_world_service.m3u8
+
+#EXTINF:-1,Radio Eins
+http://radioeins.de/stream
+
+#EXTINF:-1,ORF FM4
+http://mp3stream1.apasf.apa.at:8000/;stream
+
+#EXTINF:-1,RAC1
+http://streaming3.radiocat.net:80/
+
+#EXTINF:-1,RTL2
+http://streaming.radio.rtl2.fr/rtl2-1-48-192
+
+#EXTINF:-1,SWR 1 BW
+http://swr-swr1-bw.cast.addradio.de/swr/swr1/bw/mp3/128/stream.mp3
+
+#EXTINF:-1,RFI Monde
+http://live02.rfi.fr/rfimonde-64.mp3
+
+#EXTINF:-1,BBC Radio 4 Extra
+http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4extra_mf_p
+
+#EXTINF:-1,Rastapuls Reggae Station
+https://radio.rastapuls.com/rastapuls
+
+#EXTINF:-1,Venice Classic Radio
+http://174.36.206.197:8000/stream
+
+#EXTINF:-1,Laut.FM 1000 Oldies
+http://1000oldies.stream.laut.fm/1000oldies?t302=2018-01-16_15-40-29&uuid=37780fea-d865-4439-9a4a-66f3ec1715a0
+
+#EXTINF:-1,B5 aktuell
+http://streams.br.de/b5aktuell_2.m3u
+
+#EXTINF:-1,Radio Ultra
+http://nashe1.hostingradio.ru/ultra-192.mp3
+
+#EXTINF:-1,Kiss FM
+http://kissfm.kissfmradio.cires21.com/kissfm.mp3
+
+#EXTINF:-1,Rock Antenne
+http://mp3channels.webradio.rockantenne.de/rockantenne
+
+#EXTINF:-1,The UK 1940s Radio Station
+http://149.255.59.162:8062/stream
+
+#EXTINF:-1,.977 Hitz
+http://playerservices.streamtheworld.com/pls/977_HITS.pls
+
+#EXTINF:-1,France Culture
+http://chai5she.cdn.dvmr.fr:80/franceculture-midfi.mp3
+
+#EXTINF:-1,Юмор FM (Humor FM)
+http://listen.vdfm.ru:8000/humor
+
+#EXTINF:-1,Deutschlandfunk Nova [MP3 128k]
+http://st03.dlf.de/dlf/03/128/mp3/stream.mp3
+
+#EXTINF:-1,Deutschlandfunk [OGG Vorbis 56kbit/s]
+http://www.deutschlandradio.de/streaming/dlf_mq_ogg.m3u
+
+#EXTINF:-1,Inforadio
+http://www.inforadio.de/live.m3u
+
+#EXTINF:-1,Bayern 3 (56 kbit/s)
+http://br-br3-live.cast.addradio.de/br/br3/live/mp3/56/stream.mp3
+
+#EXTINF:-1,KEXP 90.3 Seattle, WA
+http://live-mp3-128.kexp.org:8000
+
+#EXTINF:-1,ROCK ANTENNE Classic Perlen
+http://mp3channels.webradio.rockantenne.de/classic-perlen
+
+#EXTINF:-1,Radio 10 "60's & 70's Hits"
+http://17893.live.streamtheworld.com:80/TLPSTR18.mp3
+
+#EXTINF:-1,Sunshine Live
+http://stream.sunshine-live.de/live/mp3-192/stream.sunshine-live.de/
+
+#EXTINF:-1,CBC Radio 1 Toronto (CBLA-FM, 99.1 MHz)
+http://cbc_r1_tor.akacast.akamaistream.net/7/632/451661/v1/rc.akacast.akamaistream.net/cbc_r1_tor
+
+#EXTINF:-1,1A Fitness Hits
+http://stream.1a-webradio.de/saw-fitness/mp3-128/radio-browser-1a/stream.mp3
+
+#EXTINF:-1,ORF Hitradio Ö3
+http://mp3stream7.apasf.apa.at:8000/;
+
+#EXTINF:-1,Antenne Bayern - Chillout
+http://mp3channels.webradio.antenne.de/chillout
+
+#EXTINF:-1,Prambors FM
+http://masima.rastream.com/masima-pramborsjakarta?awparams=stationid:masima-pramborsjakarta
+
+#EXTINF:-1,Virgin Radio Italia
+http://icecast.unitedradio.it/Virgin.mp3
+
+#EXTINF:-1,Ретро фм москва
+http://retroserver.streamr.ru:8043/retro256.mp3
+
+#EXTINF:-1,Hindi Desi Bollywood Evergreen Hits
+http://192.240.102.133:11454/stream
+
+#EXTINF:-1,Deutschlandfunk Kultur [MP3 128kbit/s]
+http://www.deutschlandradio.de/streaming/dkultur.m3u
+
+#EXTINF:-1,Nostalgie
+http://185.52.127.132/fr/30601/mp3_128.mp3?origine=fluxradios
+
+#EXTINF:-1,TechnoBase.FM
+http://lw2.mp3.tb-group.fm/tb.mp3
+
+#EXTINF:-1,BBC World Service UK
+http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk
+
