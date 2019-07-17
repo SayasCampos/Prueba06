@@ -14,7 +14,7 @@ use std::thread;
 use std::time::Duration;
 
 
-#[get("/v")]
+#[post("/")]
 fn play_victory() {
     let device = rodio::default_output_device().unwrap();
     let file = std::fs::File::open("media/victory.mp3").unwrap();
@@ -42,14 +42,6 @@ impl<'a, 'b> Context<'a, 'b> {
         Context{msg: msg}
     }
 }
-
-
-/*
-#[get("/")]
-fn index() -> io::Result<NamedFile> {
-    NamedFile::open("static/index.html")
-}
-*/
 
 #[get("/")]
 fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {

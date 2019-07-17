@@ -53,28 +53,28 @@
         <br>
 	<div class="btn-group mr-4" role="group" aria-label="Player">
 
-        <form action="/v" method="get" accept-charset="utf-8">
+        <form action="/" method="post" accept-charset="utf-8">
             <button  class="btn btn-secondary btn-lg">
                     <i class="fa fa-step-backward"></i>
             </button></form> 
             
-            <form action="/v" method="get" accept-charset="utf-8">
+            <form action="/" method="post" accept-charset="utf-8">
                 <button  class="btn btn-secondary btn-lg"type="submit" value="play_victory">
                     <i class="fa fa-play"></i>
                 </button></form> 
-            <form action="/v" method="get" accept-charset="utf-8">
+            <form action="/" method="post" accept-charset="utf-8">
             <button  class="btn btn-secondary btn-lg">
                     <i class="fa fa-stop"></i>
             </button></form> 
-            <form action="/v" method="get" accept-charset="utf-8">
+            <form action="/" method="post" accept-charset="utf-8">
                 <button  class="btn btn-secondary btn-lg">
                     <i class="fa fa-step-forward"></i>
                 </button> </form> 
-        <form action="/v" method="get" accept-charset="utf-8">
+        <form action="/" method="post" accept-charset="utf-8">
             <button  class="btn btn-secondary btn-lg">
                 <i class="fa fa-volume-down"></i>
             </button> </form> 
-            <form action="/v" method="get" accept-charset="utf-8">
+            <form action="/" method="post" accept-charset="utf-8">
             <button  class="btn btn-secondary btn-lg">
             <i class="fa fa-volume-up"></i>
             </button> </form> 
