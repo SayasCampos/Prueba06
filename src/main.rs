@@ -13,6 +13,32 @@ use std::io::BufReader;
 use std::thread;
 use std::time::Duration;
 
+use id3::frame::{Picture, PictureType}; // for album cover
+use id3_image::extract_first_image;     // for album cover
+
+pub struct Song {
+    pub title:  String,
+    pub album:  String,
+    pub artist: String,
+    pub genre:  String,
+    pub year:   u32,
+    pub track:  u32,
+    //albumArt
+}
+
+impl Song {
+    pub fn new(name: String) -> Song {
+        Song {
+            title:  "Unknown".to_string(),
+            album:  "Unknown".to_string(),
+            artist: "Unknown".to_string(),
+            genre: "Unknown".to_string(),
+            year: 0,
+            track: 0,
+        }
+    }
+}
+
 
 #[post("/")]
 fn play_victory() {
@@ -24,6 +50,45 @@ fn play_victory() {
     // Example metadata I/O
     let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
     println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
+
+    
+    let currentSong = Song{
+        title: tag.title().unwrap().to_string(),
+        album: "".to_string(),
+        artist: "".to_string(),
+        genre: "".to_string(),
+        year: 0,
+        track: 0,
+    };
+        /*
+        match tag.tite().unwrap().to_string().len() {
+            0 => "Unknown".to_string(), 
+            _ => title: tag.title().unwrap().to_string(),
+        }
+        */
+    /*
+        title: tag.title().unwrap().to_string(),
+        album: "".to_string(),
+        artist: "".to_string()
+        //album: tag.album().unwrap().to_string(),
+        //artist: tag.artist().unwrap().to_string()
+    */
+
+
+    //println!("{}", currentSong.title);
+
+    /*
+    let albumArt = Picture {
+        mime_type: PictureType::Other,
+        description: String::new(),
+        data: Vec::new(),
+    };
+    */
+
+    /*
+    let mut music_filename
+    let albumArt = extract_first_image(music_filename, image_filename);
+    */
 
 
     thread::sleep(Duration::from_millis(4500));
