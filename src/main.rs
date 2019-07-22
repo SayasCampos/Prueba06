@@ -13,17 +13,70 @@ use std::io::BufReader;
 use std::thread;
 use std::time::Duration;
 
+use id3::frame::{Picture, PictureType}; // for album cover
+use id3_image::extract_first_image;     // for album cover
+use std::path::{Path, PathBuf};         // for I/O
+
+//#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Track {
+    //pub path:   PathBuf,
+    pub title:  String,
+    pub album:  String,
+    pub artist: String,
+    pub genre:  String,
+    pub year:   i32,
+    pub duration:u32,
+    pub tags:   Vec<String>,
+    //albumArt
+}
+
+impl Track {
+    pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
+
+    // metadata I/O
+    let file = id3::Tag::read_from_path(file_path).unwrap().clone();
+
+        Track {
+            //path:    file_path.as_ref().to_owned(),
+            
+            title:      file.title().unwrap_or("Unkown").to_string(),
+            album:      file.album().unwrap_or("Unknown").to_string(),
+            artist:     file.artist().unwrap_or("Unknown").to_string(),
+            genre:      file.genre().unwrap_or("Unknown").to_string(),
+            year:       file.year().unwrap_or(0),
+            duration:   file.duration().unwrap_or(0),
+            tags:       Vec::new(),
+            //albumArt
+        }
+    }
+}
+
 
 #[post("/")]
 fn play_victory() {
     let device = rodio::default_output_device().unwrap();
+
+    // Example metadata I/O
+    //let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
+    //println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
+
+    
+    let _current_song: Track = Track::new("media/victory.mp3".to_string());
     let file = std::fs::File::open("media/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
 
-    // Example metadata I/O
-    let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
-    println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
+    //println!("{}", currentSong.title);
+
+    // Sandboxing around to import album art
+    /*
+    let albumArt = Picture {
+        mime_type: PictureType::Other,
+        description: String::new(),
+        data: Vec::new(),
+    };
+    */
 
 
     thread::sleep(Duration::from_millis(4500));
