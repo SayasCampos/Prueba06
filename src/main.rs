@@ -1,73 +1,66 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
-#[macro_use] extern crate serde_derive;
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate serde_derive;
 extern crate rocket_contrib;
 
+use rocket::request::FlashMessage;
 use rocket::Rocket;
-use rocket::request::{FlashMessage};
-use rocket_contrib::{templates::Template, serve::StaticFiles};
-
+use rocket_contrib::{serve::StaticFiles, templates::Template};
 
 use std::io::BufReader;
 use std::thread;
 use std::time::Duration;
+use std::path::{Path, PathBuf}; // for I/O
 
 use id3::frame::{Picture, PictureType}; // for album cover
-use id3_image::extract_first_image;     // for album cover
-use std::path::{Path, PathBuf};         // for I/O
+use id3_image::extract_first_image; // for album cover
 
 //#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Track {
     //pub path:   PathBuf,
-    pub title:  String,
-    pub album:  String,
+    pub title: String,
+    pub album: String,
     pub artist: String,
-    pub genre:  String,
-    pub year:   i32,
-    pub duration:u32,
-    pub tags:   Vec<String>,
+    pub genre: String,
+    pub year: i32,
+    pub duration: u32,
+    pub tags: Vec<String>,
     //albumArt
 }
 
 impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
-
-    // metadata I/O
-    let file = id3::Tag::read_from_path(file_path).unwrap().clone();
+        // metadata I/O
+        let file = id3::Tag::read_from_path(file_path).unwrap().clone();
 
         Track {
             //path:    file_path.as_ref().to_owned(),
-            
-            title:      file.title().unwrap_or("Unkown").to_string(),
-            album:      file.album().unwrap_or("Unknown").to_string(),
-            artist:     file.artist().unwrap_or("Unknown").to_string(),
-            genre:      file.genre().unwrap_or("Unknown").to_string(),
-            year:       file.year().unwrap_or(0),
-            duration:   file.duration().unwrap_or(0),
-            tags:       Vec::new(),
+            title: file.title().unwrap_or("Unkown").to_string(),
+            album: file.album().unwrap_or("Unknown").to_string(),
+            artist: file.artist().unwrap_or("Unknown").to_string(),
+            genre: file.genre().unwrap_or("Unknown").to_string(),
+            year: file.year().unwrap_or(0),
+            duration: file.duration().unwrap_or(0),
+            tags: Vec::new(),
             //albumArt
         }
     }
 }
 
-
 #[post("/")]
 fn play_victory() {
     let device = rodio::default_output_device().unwrap();
 
-    // Example metadata I/O
-    //let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
-    //println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
-
-    
     let _current_song: Track = Track::new("media/victory.mp3".to_string());
     let file = std::fs::File::open("media/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
 
-    //println!("{}", currentSong.title);
+    println!("{}", _current_song.title);
 
     // Sandboxing around to import album art
     /*
@@ -78,36 +71,41 @@ fn play_victory() {
     };
     */
 
-
     thread::sleep(Duration::from_millis(4500));
 }
 
-
 #[derive(Debug, Serialize)]
-struct Context<'a, 'b>{ msg: Option<(&'a str, &'b str)> }
+struct Context<'a, 'b> {
+    msg: Option<(&'a str, &'b str)>,
+}
 
 impl<'a, 'b> Context<'a, 'b> {
     pub fn err(msg: &'a str) -> Context<'static, 'a> {
-        Context{msg: Some(("error", msg))}
+        Context {
+            msg: Some(("error", msg)),
+        }
     }
 
     pub fn raw(msg: Option<(&'a str, &'b str)>) -> Context<'a, 'b> {
-        Context{msg: msg}
+        Context { msg: msg }
     }
 }
 
 #[get("/")]
 fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
-    Template::render("index", &match msg {
-        Some(ref msg) => Context::raw(Some((msg.name(), msg.msg()))),
-        None => Context::raw(None),
-    })
+    Template::render(
+        "index",
+        &match msg {
+            Some(ref msg) => Context::raw(Some((msg.name(), msg.msg()))),
+            None => Context::raw(None),
+        },
+    )
 }
 
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-	.mount("/", routes![index, play_victory])
+        .mount("/", routes![index, play_victory])
         .attach(Template::fairing())
 }
 
@@ -128,7 +126,6 @@ fn main() {
     let mut reader = m3u::Reader::open("media/playlist.m3u").unwrap();
     let read_playlist: Vec<_> = reader.entries().map(|entry| entry.unwrap()).collect();
     println!("Uploaded {} tracks to a playlist", read_playlist.len());
-
 
     rocket().launch();
 }
