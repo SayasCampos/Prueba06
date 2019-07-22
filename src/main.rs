@@ -20,12 +20,12 @@ use std::path::{Path, PathBuf};         // for I/O
 //#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Track {
-    pub path:   PathBuf,
+    //pub path:   PathBuf,
     pub title:  String,
     pub album:  String,
     pub artist: String,
     pub genre:  String,
-    pub year:   u32,
+    pub year:   i32,
     pub duration:u32,
     pub tags:   Vec<String>,
     //albumArt
@@ -35,19 +35,17 @@ impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
 
     // metadata I/O
-    //let file = id3::Tag::read_from_path(file_path).unwrap();
-    //let file = id3::Tag::read_from_path(file_path).unwrap().clone();
-    let file = id3::Tag::read_from_path(file_path).unwrap().to_owned();
+    let file = id3::Tag::read_from_path(file_path).unwrap().clone();
 
         Track {
-            path:    file_path.as_ref().to_owned(),
-            title:   "Unknown".to_string(),
-            album:   "Unknown".to_string(),
-            artist:  "Unknown".to_string(),
-            genre:   "Unknown".to_string(),
-            year:    0,
-            duration:0,
-            tags:    Vec::new(),
+            //path:    file_path.as_ref().to_owned(),
+            title:      file.title().unwrap().to_string(),
+            album:      file.album().unwrap().to_string(),
+            artist:     file.artist().unwrap().to_string(),
+            genre:      file.genre().unwrap().to_string(),
+            year:       file.year().unwrap(),
+            duration:   file.duration().unwrap(),
+            tags:       Vec::new(),
             //albumArt
         }
     }
