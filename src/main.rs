@@ -39,12 +39,13 @@ impl Track {
 
         Track {
             //path:    file_path.as_ref().to_owned(),
-            title:      file.title().unwrap().to_string(),
-            album:      file.album().unwrap().to_string(),
-            artist:     file.artist().unwrap().to_string(),
-            genre:      file.genre().unwrap().to_string(),
-            year:       file.year().unwrap(),
-            duration:   file.duration().unwrap(),
+            
+            title:      file.title().unwrap_or("Unkown").to_string(),
+            album:      file.album().unwrap_or("Unknown").to_string(),
+            artist:     file.artist().unwrap_or("Unknown").to_string(),
+            genre:      file.genre().unwrap_or("Unknown").to_string(),
+            year:       file.year().unwrap_or(0),
+            duration:   file.duration().unwrap_or(0),
             tags:       Vec::new(),
             //albumArt
         }
@@ -55,16 +56,16 @@ impl Track {
 #[post("/")]
 fn play_victory() {
     let device = rodio::default_output_device().unwrap();
+
+    // Example metadata I/O
+    //let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
+    //println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
+
+    
+    let _current_song: Track = Track::new("media/victory.mp3".to_string());
     let file = std::fs::File::open("media/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
-
-    // Example metadata I/O
-    let tag = id3::Tag::read_from_path("media/victory.mp3").unwrap();
-    println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
-
-    
-    let _current_song: Track = Track::new("file_path".to_string());
 
     //println!("{}", currentSong.title);
 
