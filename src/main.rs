@@ -18,6 +18,10 @@ use std::path::{Path, PathBuf}; // for I/O
 use id3::frame::{Picture, PictureType}; // for album cover
 use id3_image::extract_first_image; // for album cover
 
+//MOVED DEFINITION TO EXTERNAL FILE track.rs - max
+mod track;
+use track::Track;
+/*
 //#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Track {
@@ -50,6 +54,7 @@ impl Track {
         }
     }
 }
+*/
 
 #[post("/")]
 fn play_victory() {
