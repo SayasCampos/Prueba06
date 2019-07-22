@@ -15,26 +15,40 @@ use std::time::Duration;
 
 use id3::frame::{Picture, PictureType}; // for album cover
 use id3_image::extract_first_image;     // for album cover
+use std::path::{Path, PathBuf};         // for I/O
 
-pub struct Song {
+//#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Track {
+    pub path:   PathBuf,
     pub title:  String,
     pub album:  String,
     pub artist: String,
     pub genre:  String,
     pub year:   u32,
-    pub track:  u32,
+    pub duration:u32,
+    pub tags:   Vec<String>,
     //albumArt
 }
 
-impl Song {
-    pub fn new(name: String) -> Song {
-        Song {
-            title:  "Unknown".to_string(),
-            album:  "Unknown".to_string(),
-            artist: "Unknown".to_string(),
-            genre: "Unknown".to_string(),
-            year: 0,
-            track: 0,
+impl Track {
+    pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
+
+    // metadata I/O
+    //let file = id3::Tag::read_from_path(file_path).unwrap();
+    //let file = id3::Tag::read_from_path(file_path).unwrap().clone();
+    let file = id3::Tag::read_from_path(file_path).unwrap().to_owned();
+
+        Track {
+            path:    file_path.as_ref().to_owned(),
+            title:   "Unknown".to_string(),
+            album:   "Unknown".to_string(),
+            artist:  "Unknown".to_string(),
+            genre:   "Unknown".to_string(),
+            year:    0,
+            duration:0,
+            tags:    Vec::new(),
+            //albumArt
         }
     }
 }
@@ -52,42 +66,17 @@ fn play_victory() {
     println!("{} {}", tag.title().unwrap() , tag.album().unwrap());
 
     
-    let currentSong = Song{
-        title: tag.title().unwrap().to_string(),
-        album: "".to_string(),
-        artist: "".to_string(),
-        genre: "".to_string(),
-        year: 0,
-        track: 0,
-    };
-        /*
-        match tag.tite().unwrap().to_string().len() {
-            0 => "Unknown".to_string(), 
-            _ => title: tag.title().unwrap().to_string(),
-        }
-        */
-    /*
-        title: tag.title().unwrap().to_string(),
-        album: "".to_string(),
-        artist: "".to_string()
-        //album: tag.album().unwrap().to_string(),
-        //artist: tag.artist().unwrap().to_string()
-    */
-
+    let _current_song: Track = Track::new("file_path".to_string());
 
     //println!("{}", currentSong.title);
 
+    // Sandboxing around to import album art
     /*
     let albumArt = Picture {
         mime_type: PictureType::Other,
         description: String::new(),
         data: Vec::new(),
     };
-    */
-
-    /*
-    let mut music_filename
-    let albumArt = extract_first_image(music_filename, image_filename);
     */
 
 
