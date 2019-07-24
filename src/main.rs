@@ -23,7 +23,7 @@ mod track;
 use track::Track;
 
 #[post("/")]
-fn play_victory() {
+fn play_victory() -> String {
     let device = rodio::default_output_device().unwrap();
 
     let _current_song: Track = Track::new("media/victory.mp3".to_string());
@@ -41,8 +41,9 @@ fn play_victory() {
         data: Vec::new(),
     };
     */
-
+    
     thread::sleep(Duration::from_millis(4500));
+    "success".to_string()
 }
 
 #[derive(Debug, Serialize)]

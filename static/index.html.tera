@@ -58,10 +58,10 @@
                     <i class="fa fa-step-backward"></i>
             </button></form> 
             
-            <form action="/" method="post" accept-charset="utf-8">
-                <button  class="btn btn-secondary btn-lg"type="submit" value="play_victory">
+            
+                <button  id="play" class="btn btn-secondary btn-lg"type="submit" value="play_victory">
                     <i class="fa fa-play"></i>
-                </button></form> 
+                </button> 
             <form action="/" method="post" accept-charset="utf-8">
             <button  class="btn btn-secondary btn-lg">
                     <i class="fa fa-stop"></i>
@@ -113,6 +113,19 @@
     <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
     <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="js/front.js"></script>
+	<script>
+		const url='/';
+		const data={
+			name:"play_victory",
+			id:play
+		}
+
+		$('#play').click(function() {
+			$.post(url, function(data, status){
+				console.log(`${data} and status is ${status}`)
+			});
+		})
+	</script>
 
 </body>
 </html>
