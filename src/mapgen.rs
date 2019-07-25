@@ -23,8 +23,13 @@ pub fn get_map(dir: &Path) -> io::Result<HashMap<String, Track>> {
                 match fname {
                     None    => None,
                     Some(s) => {
-                        let p = Path::new(&path);
-                        hm.insert(s.to_owned(), Track::new(&p))
+                        if s.ends_with(".mp3") {
+                            let p = Path::new(&path);
+                            hm.insert(s.to_owned(), Track::new(&p))
+                        }
+                        else {
+                            None
+                        }
                     },
                 };
             }
