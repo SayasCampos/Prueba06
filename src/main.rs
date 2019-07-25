@@ -19,14 +19,17 @@ use id3::frame::{Picture, PictureType}; // for album cover
 use id3_image::extract_first_image; // for album cover
 
 //MOVED DEFINITION TO EXTERNAL FILE track.rs - max
-mod track;
-use track::Track;
+mod mapgen;
+use mapgen::get_map;
+use mapgen::track::Track;
 
 #[post("/")]
 fn play_victory() -> String {
     let device = rodio::default_output_device().unwrap();
 
-    let _current_song: Track = Track::new("media/victory.mp3".to_string());
+//    let _current_song: Track = Track::new("media/victory.mp3".to_string());
+    let _current_song_path = Path::new("media/victory.mp3");
+    let _current_song: Track = Track::new(_current_song_path);
     let file = std::fs::File::open("media/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
@@ -83,16 +86,22 @@ fn rocket() -> Rocket {
 
 fn main() {
     // Example playlist entry
-    let playlist = vec![
-        m3u::path_entry(r"Alternative\Band - Song.mp3"),
-        m3u::path_entry(r"Classical\Other Band - New Song.mp3"),
-        m3u::path_entry(r"Stuff.mp3"),
-        m3u::path_entry(r"D:\More Music\Foo.mp3"),
-        m3u::path_entry(r"..\Other Music\Bar.mp3"),
-        m3u::url_entry(r"http://emp.cx:8000/Listen.pls").unwrap(),
-        m3u::url_entry(r"http://www.example.com/~user/Mine.mp3").unwrap(),
-    ];
-    println!("There are {} items in current playlist", playlist.len());
+
+    let media_dir = Path::new("media/");
+    let music_lib = get_map(&media_dir);
+
+    match music_lib {
+        Ok(a) => {
+            println!("HashMap has {} values\n", a.len());
+            for b in a.keys() {
+                let track = a.get(b).unwrap();
+                println!("{}", track.title);
+            }
+        },
+        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
+    }
+    
+
 
     // Example playlist I/O
     let mut reader = m3u::Reader::open("media/playlist.m3u").unwrap();
