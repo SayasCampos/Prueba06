@@ -22,18 +22,34 @@ impl Track {
 //    pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
     pub fn new(file_path: &Path) -> Track {
 
-        let file = id3::Tag::read_from_path(file_path).unwrap().clone();
+//        let file = id3::Tag::read_from_path(file_path).unwrap().clone();
 
-        Track {
-            path:       file_path.to_str().unwrap().to_string(),
-            title:      file.title().unwrap_or("Unkown").to_string(),
-            album:      file.album().unwrap_or("Unknown").to_string(),
-            artist:     file.artist().unwrap_or("Unknown").to_string(),
-            genre:      file.genre().unwrap_or("Unknown").to_string(),
-            year:       file.year().unwrap_or(0),
-            duration:   file.duration().unwrap_or(0),
-            tags:       Vec::new(),
-            //albumArt
+        match id3::Tag::read_from_path(file_path) {
+            Ok(file)   => {
+                Track {
+                    path:       file_path.to_str().unwrap().to_string(),
+                    title:      file.title().unwrap_or("Unkown").to_string(),
+                    album:      file.album().unwrap_or("Unknown").to_string(),
+                    artist:     file.artist().unwrap_or("Unknown").to_string(),
+                    genre:      file.genre().unwrap_or("Unknown").to_string(),
+                    year:       file.year().unwrap_or(0),
+                    duration:   file.duration().unwrap_or(0),
+                    tags:       Vec::new(),
+                    //albumArt
+                }
+            },
+            Err(_)     => {
+                Track {
+                    path:       file_path.to_str().unwrap().to_string(),
+                    title:      "unknown".to_string(),
+                    album:      "unknown".to_string(),
+                    artist:     "unknown".to_string(),
+                    genre:     "unknown".to_string(), 
+                    year:       0,
+                    duration:   0,
+                    tags:       Vec::new(),
+                }
+            },
         }
     }
 }

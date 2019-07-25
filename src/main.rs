@@ -104,9 +104,9 @@ fn main() {
 
 
     // Example playlist I/O
-    let mut reader = m3u::Reader::open("media/playlist.m3u").unwrap();
-    let read_playlist: Vec<_> = reader.entries().map(|entry| entry.unwrap()).collect();
-    println!("Uploaded {} tracks to a playlist", read_playlist.len());
+//    let mut reader = m3u::Reader::open("media/playlist.m3u").unwrap();
+//    let read_playlist: Vec<_> = reader.entries().map(|entry| entry.unwrap()).collect();
+//    println!("Uploaded {} tracks to a playlist", read_playlist.len());
 
     rocket().launch();
 }
