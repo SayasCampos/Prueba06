@@ -13,10 +13,11 @@ use rocket_contrib::{serve::StaticFiles, templates::Template};
 use std::io::BufReader;
 use std::thread;
 use std::time::Duration;
-use std::path::{Path, PathBuf}; // for I/O
+//use std::path::{Path, PathBuf};
+use std::path::{Path};
 
-use id3::frame::{Picture, PictureType}; // for album cover
-use id3_image::extract_first_image; // for album cover
+//use id3::frame::{Picture, PictureType}; // for album cover
+//use id3_image::extract_first_image; // for album cover
 
 //MOVED DEFINITION TO EXTERNAL FILE track.rs - max
 mod mapgen;

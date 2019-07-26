@@ -1,13 +1,10 @@
-use std::path::Path;
-//use std::path::{Path, PathBuf};
+use std::path::{Path, PathBuf};
 //use id3::frame::{Picture, PictureType};
 //use id3_image::extract_first_image;
 
 pub struct Track {
     //pub path:   PathBuf,
-    
-    pub path: String,
-
+    pub path: Option<PathBuf>,
     pub title: String,
     pub album: String,
     pub artist: String,
@@ -20,14 +17,15 @@ pub struct Track {
 
 impl Track {
 //    pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
-    pub fn new(file_path: &Path) -> Track {
+    pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
 
 //        let file = id3::Tag::read_from_path(file_path).unwrap().clone();
 
-        match id3::Tag::read_from_path(file_path) {
+        match id3::Tag::read_from_path(file_path.as_ref()) {
             Ok(file)   => {
                 Track {
-                    path:       file_path.to_str().unwrap().to_string(),
+                    path:       Some(file_path.as_ref().to_owned()),
+                    //path:       file_path.to_str().unwrap().to_string(),
                     title:      file.title().unwrap_or("Unkown").to_string(),
                     album:      file.album().unwrap_or("Unknown").to_string(),
                     artist:     file.artist().unwrap_or("Unknown").to_string(),
@@ -40,7 +38,9 @@ impl Track {
             },
             Err(_)     => {
                 Track {
-                    path:       file_path.to_str().unwrap().to_string(),
+                    path:       None,
+                    //path:       Some(file_path.as_ref().to_owned()),
+                    //path:       file_path.to_str().unwrap().to_string(),
                     title:      "unknown".to_string(),
                     album:      "unknown".to_string(),
                     artist:     "unknown".to_string(),
