@@ -11,13 +11,9 @@ use rocket::Rocket;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 
 use std::io::BufReader;
+use std::path::Path;
 use std::thread;
 use std::time::Duration;
-//use std::path::{Path, PathBuf};
-use std::path::{Path};
-
-//use id3::frame::{Picture, PictureType}; // for album cover
-//use id3_image::extract_first_image; // for album cover
 
 //MOVED DEFINITION TO EXTERNAL FILE track.rs - max
 mod mapgen;
@@ -28,7 +24,7 @@ use mapgen::track::Track;
 fn play_victory() -> String {
     let device = rodio::default_output_device().unwrap();
 
-//    let _current_song: Track = Track::new("media/victory.mp3".to_string());
+    //    let _current_song: Track = Track::new("media/victory.mp3".to_string());
     let _current_song_path = Path::new("media/victory.mp3");
     let _current_song: Track = Track::new(_current_song_path);
     let file = std::fs::File::open("media/victory.mp3").unwrap();
@@ -37,15 +33,6 @@ fn play_victory() -> String {
 
     println!("{}", _current_song.title);
 
-    // Sandboxing around to import album art
-    /*
-    let albumArt = Picture {
-        mime_type: PictureType::Other,
-        description: String::new(),
-        data: Vec::new(),
-    };
-    */
-    
     thread::sleep(Duration::from_millis(4500));
     "success".to_string()
 }
@@ -98,16 +85,9 @@ fn main() {
                 let track = a.get(b).unwrap();
                 println!("{}", track.title);
             }
-        },
+        }
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }
-    
-
-
-    // Example playlist I/O
-//    let mut reader = m3u::Reader::open("media/playlist.m3u").unwrap();
-//    let read_playlist: Vec<_> = reader.entries().map(|entry| entry.unwrap()).collect();
-//    println!("Uploaded {} tracks to a playlist", read_playlist.len());
 
     rocket().launch();
 }
