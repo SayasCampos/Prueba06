@@ -1,13 +1,9 @@
 # rustadio
 
-Christopher Teters <cteters@pdx.edu>
-Max Smiley <smiley6@pdx.edu>
-Paul Hubbard <phubbard@pdx.edu>
-
-This program is in development toward becoming a
-simple webapp based media player that can be used
-to play common digital audio coding formats such as
-mp3 using the Rust programming language.
+This program is in development toward becoming a simple
+webapp based media player that can be used to play common
+digital audio coding formats such as mp3 using the Rust
+programming language.
 
 A more midterm goal might include the implementation
 and use file formats such as [M3U](https://en.wikipedia.org/wiki/M3U), for providing use of
@@ -29,9 +25,13 @@ functional to the computer.
 
 ## Build and Run
 
-Build this program and library with `cargo build`. You can
+This program uses Rocket, which requires Rust nightly. To
+build rustadio, first enable nightly if not already enabled
+and build the library with `cargo build`. You can
 run the program with `cargo run`.
 
+    rustup default nightly
+    cargo build
     cargo run
 
 To build or run an optimized version, use `cargo --release`.
