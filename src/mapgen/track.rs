@@ -16,21 +16,16 @@ pub struct Track {
 }
 
 impl Track {
-
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
-    
-        let music_filename =  Path::new("media/victory.mp3");
-        let image_filename =  Path::new("media/test.png");
-        let tag = id3::Tag::read_from_path(&music_filename).unwrap();
-        //let tag = id3::Tag::read_from_path(&file_path).unwrap();
+        let hard_code_file = Path::new("media/victory.mp3");
+        let hard_code_image = Path::new("media/temp.png");
+        let tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
         let pic = tag.pictures().next();
-
         if let Some(p) = pic {
             match image::load_from_memory(&p.data) {
                 Ok(image) => {
-                    image.save(&image_filename);
-                    //image.save(&file_path);
-                },
+                    image.save(&hard_code_image);
+                }
                 _ => println!("Couldn't load image"),
             };
         } else {
@@ -38,31 +33,27 @@ impl Track {
         }
 
         match id3::Tag::read_from_path(file_path.as_ref()) {
-            Ok(file)   => {
-                Track {
-                    path:       Some(file_path.as_ref().to_owned()),
-                    title:      file.title().unwrap_or("Unkown").to_string(),
-                    album:      file.album().unwrap_or("Unknown").to_string(),
-                    artist:     file.artist().unwrap_or("Unknown").to_string(),
-                    genre:      file.genre().unwrap_or("Unknown").to_string(),
-                    year:       file.year().unwrap_or(0),
-                    duration:   file.duration().unwrap_or(0),
-                    tags:       Vec::new(),
-                    cover:	    Some(Path::new("media/test.png").to_path_buf()),
-                }
+            Ok(file) => Track {
+                path: Some(file_path.as_ref().to_owned()),
+                title: file.title().unwrap_or("Unkown").to_string(),
+                album: file.album().unwrap_or("Unknown").to_string(),
+                artist: file.artist().unwrap_or("Unknown").to_string(),
+                genre: file.genre().unwrap_or("Unknown").to_string(),
+                year: file.year().unwrap_or(0),
+                duration: file.duration().unwrap_or(0),
+                tags: Vec::new(),
+                cover: Some(Path::new("media/test.png").to_path_buf()),
             },
-            Err(_)     => {
-                Track {
-                    path:       None,
-                    title:      "unknown".to_string(),
-                    album:      "unknown".to_string(),
-                    artist:     "unknown".to_string(),
-                    genre:     "unknown".to_string(), 
-                    year:       0,
-                    duration:   0,
-                    tags:       Vec::new(),
-		            cover:	    None,
-                }
+            Err(_) => Track {
+                path: None,
+                title: "unknown".to_string(),
+                album: "unknown".to_string(),
+                artist: "unknown".to_string(),
+                genre: "unknown".to_string(),
+                year: 0,
+                duration: 0,
+                tags: Vec::new(),
+                cover: None,
             },
         }
     }

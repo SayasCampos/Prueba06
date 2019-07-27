@@ -11,9 +11,9 @@ use rocket::Rocket;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 
 use std::io::BufReader;
+use std::path::Path;
 use std::thread;
 use std::time::Duration;
-use std::path::{Path};
 
 //MOVED DEFINITION TO EXTERNAL FILE track.rs - max
 mod mapgen;
@@ -24,7 +24,7 @@ use mapgen::track::Track;
 fn play_victory() -> String {
     let device = rodio::default_output_device().unwrap();
 
-//    let _current_song: Track = Track::new("media/victory.mp3".to_string());
+    //    let _current_song: Track = Track::new("media/victory.mp3".to_string());
     let _current_song_path = Path::new("media/victory.mp3");
     let _current_song: Track = Track::new(_current_song_path);
     let file = std::fs::File::open("media/victory.mp3").unwrap();
@@ -32,7 +32,7 @@ fn play_victory() -> String {
     victory.set_volume(1.0);
 
     println!("{}", _current_song.title);
-    
+
     thread::sleep(Duration::from_millis(4500));
     "success".to_string()
 }
@@ -85,9 +85,9 @@ fn main() {
                 let track = a.get(b).unwrap();
                 println!("{}", track.title);
             }
-        },
+        }
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }
-    
+
     rocket().launch();
 }
