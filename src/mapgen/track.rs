@@ -19,7 +19,8 @@ impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
         let hard_code_file = Path::new("media/victory.mp3");
         let temp_img = Path::new("static/img/temp.png");
-        let tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
+        let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
+        let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
         let pic = tag.pictures().next();
         if let Some(p) = pic {
             match image::load_from_memory(&p.data) {
