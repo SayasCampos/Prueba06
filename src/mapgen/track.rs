@@ -18,13 +18,13 @@ pub struct Track {
 impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
         let hard_code_file = Path::new("media/victory.mp3");
-        let hard_code_image = Path::new("media/temp.png");
+        let temp_img = Path::new("static/img/temp.png");
         let tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
         let pic = tag.pictures().next();
         if let Some(p) = pic {
             match image::load_from_memory(&p.data) {
                 Ok(image) => {
-                    image.save(&hard_code_image);
+                    image.save(&temp_img);
                 }
                 _ => println!("Couldn't load image"),
             };
