@@ -34,19 +34,14 @@ pub fn get_map(dir: &Path) -> io::Result<HashMap<String, Track>> {
                 };
             }
 
-            /*
-             * this else clause deals with directory support.
-             * it's not currently functioning and I consider it
-             * lower priority. On the list, though.
 
             else {
-                hm_opt = get_map(path.to_str()?);
+                let hm_opt = get_map(&path);
                 match hm_opt {
-                    Some(hm_new) => hm.extend(hm_new),
-                    None() => (),
+                    Ok(hm_new) => hm.extend(hm_new),
+                    Err(_) => (),
                 }
             }
-            */
         }
         Ok(hm)
     }
