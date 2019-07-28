@@ -19,6 +19,12 @@ use std::time::Duration;
 mod mapgen;
 use mapgen::get_map;
 use mapgen::track::Track;
+use rocket_contrib::json::Json;
+
+#[derive(Serialize)]
+struct MyTrack {
+    my_title: String
+}
 
 #[post("/")]
 fn play_victory() -> String {
@@ -30,12 +36,23 @@ fn play_victory() -> String {
     let file = std::fs::File::open("media/victory.mp3").unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
+    victory.play();
 
     println!("{}", _current_song.title);
 
     thread::sleep(Duration::from_millis(4500));
-    "success".to_string()
+    _current_song.title.to_string()
 }
+
+#[get("/get_songs")]
+fn get_songs() -> Json<Track> {
+    let _current_song_path = Path::new("media/victory.mp3");
+    let _current_song: Track = Track::new(_current_song_path);
+
+    Json(_current_song)
+}
+    
+
 
 #[derive(Debug, Serialize)]
 struct Context<'a, 'b> {
@@ -68,7 +85,7 @@ fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-        .mount("/", routes![index, play_victory])
+        .mount("/", routes![index, play_victory, get_songs])
         .attach(Template::fairing())
 }
 

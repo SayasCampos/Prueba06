@@ -3,6 +3,7 @@ use std::path::{Path, PathBuf};
 //use id3::frame::{Content, Picture, PictureType};
 //use id3_image::extract_first_image;
 
+#[derive(Serialize)]
 pub struct Track {
     pub path: Option<PathBuf>,
     pub title: String,
