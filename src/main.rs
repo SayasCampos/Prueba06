@@ -23,17 +23,19 @@ use rocket_contrib::json::Json;
 
 #[derive(Serialize)]
 struct MyTrack {
-    my_title: String
+    track_list: Vec<Track> 
 }
 
-#[post("/")]
-fn play_victory() -> String {
+#[post("/media/<id>")]
+fn play_victory(id: &rocket::http::RawStr) -> String {
     let device = rodio::default_output_device().unwrap();
-
     //    let _current_song: Track = Track::new("media/victory.mp3".to_string());
-    let _current_song_path = Path::new("media/victory.mp3");
+    let mut path = "media/".to_string();
+    path.push_str(id.as_str());
+    println!("{}", path);
+    let _current_song_path = Path::new(&path);
     let _current_song: Track = Track::new(_current_song_path);
-    let file = std::fs::File::open("media/victory.mp3").unwrap();
+    let file = std::fs::File::open(&path).unwrap();
     let victory = rodio::play_once(&device, BufReader::new(file)).unwrap();
     victory.set_volume(1.0);
     victory.play();
@@ -45,11 +47,13 @@ fn play_victory() -> String {
 }
 
 #[get("/get_songs")]
-fn get_songs() -> Json<Track> {
+fn get_songs() -> Json<MyTrack> {
     let _current_song_path = Path::new("media/victory.mp3");
     let _current_song: Track = Track::new(_current_song_path);
-
-    Json(_current_song)
+    let mut track_list: Vec<Track> = Vec::new();
+    track_list.push(_current_song);
+    let tracks: MyTrack = MyTrack{track_list};
+    Json(tracks)
 }
     
 

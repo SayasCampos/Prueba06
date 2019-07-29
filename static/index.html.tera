@@ -121,7 +121,7 @@
       <script src="js/front.js"></script>
       <script>
 	 var tracks = [];
-         const url='/';
+         var url = '/';
 	 const getUrl = "/get_songs";
          const data={
          	name:"play_victory",
@@ -129,10 +129,12 @@
          }	
 	 var song_list = $("#avail_songs");	
 
-	function post_song() {
+	function post_song(song_path) {
+		url += song_path;
 		$.post(url, function(data, status){
 			console.log(`${data} and status is ${status}`)
 		});
+		url = '/';
 	}
 
 	function empty_track_list() {
@@ -144,7 +146,7 @@
 			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
 			console.log(tracks[i]);
 			$(document).ready(function() {
-				post_song();
+				post_song(tracks[i].path);
 			});
 		});
 	})
@@ -153,16 +155,16 @@
 		empty_track_list();
 		song_list.empty();	
 		$.getJSON(getUrl, function(result) {
-			tracks.push(result);
+			tracks = result.track_list;
 			console.log(result);
 			var li = $('<li/>')
 			.addClass("list-group-item")
 			.attr('role', 'groupitme')
-			.text(result.title)
+			.text(tracks[0].title)
 			.appendTo(song_list);
 			var span = $('<span/>')
 			.addClass('badge')
-			.text(' by ' + result.artist)
+			.text(' by ' + tracks[0].artist)
 			.appendTo(li);
 		});
 	})
