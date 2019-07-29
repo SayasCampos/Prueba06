@@ -21,7 +21,7 @@ image = "0.21.0"
 [dependencies.rocket_contrib]
 rocket_contrib = "0.4.2"
 default_features = false
-features = ["tera_templates", "serve"]
+features = ["tera_templates", "serve", "json"]
 
 
 

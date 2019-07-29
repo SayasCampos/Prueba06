@@ -44,16 +44,16 @@
          <br>
          <br>
          <br>
-<ul class="list-group">
-  <li class="list-group-item">foo song <span class="badge">bar id</span></li>
-  <li class="list-group-item">bar song <span class="badge">foo id</span></li> 
-</ul>
+<button  id="get_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
+            Get Available Songs</button> 
+<ul id="avail_songs" class="list-group">
+  </ul>
   </div>
   <div class="col-sm-6">
             <img src="img/blankAlbum.jpg" align="bottom" alt="Album art" width="500" height="500"/>
             <br><br>
             <div size="24" data-animate="fadeInUp">'
-		    <big><font color="grey"><strong>Song info</strong></font></big>
+		    <big><font id="song_info" color="grey"><strong>Song info</strong></font></big>
 	    </div>
 
          <br>
@@ -96,16 +96,10 @@
          <br>
          <br>
 <ul class="list-group">
-  <li class="list-group-item">foo song <span class="badge">foo id</span></li>
-  <li class="list-group-item">bar song <span class="badge">bar id</span></li> 
 </ul>
   </div>
 </div>
 </section>
-
-
-
-
       <!-- Footer-->
       <footer class="main-footer">
          <div class="container">
@@ -126,17 +120,62 @@
       <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
       <script src="js/front.js"></script>
       <script>
-         const url='/';
+	 var tracks = [];
+         var url = '/';
+	 const getUrl = "/get_songs";
          const data={
          	name:"play_victory",
          	id:play
-         }
-         
+         }	
+	 var song_list = $("#avail_songs");	
+
+	function post_song(song_path) {
+		
+		//TODO: Remove this once you can figure out how to 
+		//delay for the song, and still have 
+		//the track play. 
+		$.ajaxSetup({
+			async: false
+		});
+		url += song_path;
+		$.post(url, function(data, status){
+			console.log(`${data} and status is ${status}`)
+			url = '/';
+			return true;
+		});
+	}
+
+	function empty_track_list() {
+		tracks = [];
+	}
+  
          $('#play').click(function() {
-         	$.post(url, function(data, status){
-         		console.log(`${data} and status is ${status}`)
-         	});
-         })
+		$.each(tracks, function(i) {
+			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
+			console.log(tracks[i]);
+			post_song(tracks[i].path);
+		});
+	})
+
+	$('#get_songs').click(function() {
+		empty_track_list();
+		song_list.empty();	
+		$.getJSON(getUrl, function(result) {
+			tracks = result.track_list;
+			tracks.push(result.track_list[0]); //TODO: Remove this once you can load more than one song
+			console.log(result);
+			var li = $('<li/>')
+			.addClass("list-group-item")
+			.attr('role', 'groupitme')
+			.text(tracks[0].title)
+			.appendTo(song_list);
+			var span = $('<span/>')
+			.addClass('badge')
+			.text(' by ' + tracks[0].artist)
+			.appendTo(li);
+		});
+	})
+
       </script>
    </body>
 </html>
