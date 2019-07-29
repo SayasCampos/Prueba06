@@ -130,11 +130,19 @@
 	 var song_list = $("#avail_songs");	
 
 	function post_song(song_path) {
+		
+		//TODO: Remove this once you can figure out how to 
+		//delay for the song, and still have 
+		//the track play. 
+		$.ajaxSetup({
+			async: false
+		});
 		url += song_path;
 		$.post(url, function(data, status){
 			console.log(`${data} and status is ${status}`)
+			url = '/';
+			return true;
 		});
-		url = '/';
 	}
 
 	function empty_track_list() {
@@ -145,9 +153,7 @@
 		$.each(tracks, function(i) {
 			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
 			console.log(tracks[i]);
-			$(document).ready(function() {
-				post_song(tracks[i].path);
-			});
+			post_song(tracks[i].path);
 		});
 	})
 
@@ -156,6 +162,7 @@
 		song_list.empty();	
 		$.getJSON(getUrl, function(result) {
 			tracks = result.track_list;
+			tracks.push(result.track_list[0]); //TODO: Remove this once you can load more than one song
 			console.log(result);
 			var li = $('<li/>')
 			.addClass("list-group-item")
