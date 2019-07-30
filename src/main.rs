@@ -23,6 +23,8 @@ use rocket_contrib::json::Json;
 use rodio::Source;
 use std::cell::RefCell;
 
+use qr2term::print_qr; // for later use when IP is no longer static
+
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
 
@@ -33,6 +35,25 @@ thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(
 #[derive(Serialize)]
 struct MyTrack {
     track_list: Vec<Track> 
+}
+
+fn change_cover <P: AsRef<Path>> (file_path: P) {
+//fn change_cover new<P: AsRef<Path>> (file_path: P) {
+    let hard_code_file = Path::new("media/victory.mp3");
+    let temp_img = Path::new("static/img/temp.png");
+    let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
+    let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
+    let pic = tag.pictures().next();
+    if let Some(p) = pic {
+        match image::load_from_memory(&p.data) {
+            Ok(image) => {
+                image.save(&temp_img);
+            }
+            _ => println!("Couldn't load image"),
+        };
+    } else {
+        println!("No art to load");
+    }
 }
 
 #[post("/stop")]
@@ -50,6 +71,7 @@ fn play_victory(id: &rocket::http::RawStr) -> String {
     let mut path = "media/".to_string();
     path.push_str(id.as_str());
     println!("{}", path);
+    change_cover(&path);
     let _current_song_path = Path::new(&path);
     let duration = mp3_duration::from_path(&path).unwrap();
     //let mill_dur = duration.as_millis() as u64;
@@ -145,5 +167,6 @@ fn main() {
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }
 
+//    print_qr("http://192.168.1.32:8000");
     rocket().launch();
 }

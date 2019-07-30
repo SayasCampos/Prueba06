@@ -33,22 +33,6 @@ impl Default for Track {
 
 impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
-        let hard_code_file = Path::new("media/victory.mp3");
-        let temp_img = Path::new("static/img/temp.png");
-        let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
-        let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
-        let pic = tag.pictures().next();
-        if let Some(p) = pic {
-            match image::load_from_memory(&p.data) {
-                Ok(image) => {
-                    image.save(&temp_img);
-                }
-                _ => println!("Couldn't load image"),
-            };
-        } else {
-            println!("No art to load");
-        }
-
         match id3::Tag::read_from_path(file_path.as_ref()) {
             Ok(file) => Track {
                 path: Some(file_path.as_ref().to_owned()),
@@ -59,7 +43,7 @@ impl Track {
                 year: file.year().unwrap_or(0),
                 duration:  mp3_duration::from_path(file_path.as_ref()).unwrap(),
                 tags: Vec::new(),
-                cover: Some(Path::new("media/test.png").to_path_buf()),
+                cover: Some(Path::new("static/img/album/current-cover.png").to_path_buf()),
             },
             Err(_) => Default::default(),
         }
