@@ -17,11 +17,12 @@ id3 = "0.3.0"
 id3-image = "0.1.1"
 m3u = "1.0.0"
 image = "0.21.0"
+mp3-duration = "0.1.6"
 
 [dependencies.rocket_contrib]
 rocket_contrib = "0.4.2"
 default_features = false
-features = ["tera_templates", "serve"]
+features = ["tera_templates", "serve", "json"]
 
 
 

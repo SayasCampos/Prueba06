@@ -3,6 +3,7 @@ use std::path::{Path, PathBuf};
 //use id3::frame::{Content, Picture, PictureType};
 //use id3_image::extract_first_image;
 
+#[derive(Serialize)]
 pub struct Track {
     pub path: Option<PathBuf>,
     pub title: String,
@@ -17,7 +18,7 @@ pub struct Track {
 
 impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
-        let hard_code_file = Path::new("media/victory.mp3");
+        let hard_code_file = Path::new("media/pauElliot.mp3");
         let temp_img = Path::new("static/img/temp.png");
         let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
         let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
