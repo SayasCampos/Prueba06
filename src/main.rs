@@ -23,6 +23,8 @@ use rocket_contrib::json::Json;
 use rodio::Source;
 use std::cell::RefCell;
 
+use qr2term::print_qr;
+
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
 
@@ -145,5 +147,6 @@ fn main() {
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }
 
+//    print_qr("http://192.168.1.32:8000");
     rocket().launch();
 }
