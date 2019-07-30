@@ -35,6 +35,24 @@ struct MyTrack {
     track_list: Vec<Track> 
 }
 
+fn get_track_list() -> Vec<mapgen::track::Track> {
+    let media_dir = Path::new("media/");
+    let music_lib = get_map(&media_dir);
+    let mut track_vec: Vec<Track> = Vec::new();
+
+    match music_lib {
+        Ok(a) => {
+            for b in a.keys() {
+                let track = a.get(b).unwrap();
+                track_vec.push(track.clone());
+            }
+        }
+        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
+    }
+
+    track_vec
+}
+
 #[post("/stop")]
 fn stop(){
         SINK.with(|sink_cell| {
@@ -45,14 +63,13 @@ fn stop(){
 }
 
 #[post("/media/<id>")]
-fn play_victory(id: &rocket::http::RawStr) -> String {
+fn load_songs(id: &rocket::http::RawStr) -> String {
     //let device = rodio::default_output_device().unwrap();
     let mut path = "media/".to_string();
     path.push_str(id.as_str());
-    println!("{}", path);
     let _current_song_path = Path::new(&path);
     let duration = mp3_duration::from_path(&path).unwrap();
-    //let mill_dur = duration.as_millis() as u64;
+    let mill_dur = duration.as_millis() as u64;
     let _current_song: Track = Track::new(_current_song_path);
     println!("{:?}", duration);
     let file = std::fs::File::open(&path).unwrap();
@@ -79,14 +96,8 @@ fn play_victory(id: &rocket::http::RawStr) -> String {
 
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
-    let _current_song_path = Path::new("media/victory.mp3");
-    let _current_song: Track = Track::new(_current_song_path);
-    let _next_song_path = Path::new("media/pauElliot.mp3");
-    let _next_song: Track = Track::new(_next_song_path);
-
     let mut track_list: Vec<Track> = Vec::new();
-    track_list.push(_current_song);
-    track_list.push(_next_song);
+    track_list = get_track_list();
     let tracks: MyTrack = MyTrack{track_list};
     Json(tracks)
 }
@@ -124,7 +135,7 @@ fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-        .mount("/", routes![stop, index, play_victory, get_songs])
+        .mount("/", routes![stop, index, load_songs, get_songs])
         .attach(Template::fairing())
 }
 
