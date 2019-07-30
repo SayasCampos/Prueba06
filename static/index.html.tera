@@ -66,11 +66,9 @@
             <button  id="play" class="btn btn-secondary btn-lg"type="submit" value="play_victory">
             <i class="fa fa-play"></i>
             </button> 
-            <form action="/" method="post" accept-charset="utf-8">
-               <button  class="btn btn-secondary btn-lg">
+               <button id="stop" class="btn btn-secondary btn-lg">
                <i class="fa fa-stop"></i>
                </button>
-            </form>
             <form action="/" method="post" accept-charset="utf-8">
                <button  class="btn btn-secondary btn-lg">
                <i class="fa fa-step-forward"></i>
@@ -122,6 +120,8 @@
       <script>
 	 var tracks = [];
          var url = '/';
+	 var i = 0;
+	 var timeDelay = 0;
 	 const getUrl = "/get_songs";
          const data={
          	name:"play_victory",
@@ -130,31 +130,46 @@
 	 var song_list = $("#avail_songs");	
 
 	function post_song(song_path) {
-		
+	/*	
 		//TODO: Remove this once you can figure out how to 
 		//delay for the song, and still have 
 		//the track play. 
 		$.ajaxSetup({
 			async: false
 		});
+		*/
 		url += song_path;
 		$.post(url, function(data, status){
 			console.log(`${data} and status is ${status}`)
-			url = '/';
-			return true;
 		});
 	}
 
 	function empty_track_list() {
 		tracks = [];
 	}
-  
-         $('#play').click(function() {
-		$.each(tracks, function(i) {
+
+	function my_loop(time) {
+		setTimeout(function () {
 			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
 			console.log(tracks[i]);
 			post_song(tracks[i].path);
-		});
+			i++;
+			if ( i < tracks.length)
+			{
+				timeDelay = 0;
+				my_loop(timeDelay);
+			}
+		}, time)
+	}
+  
+         $('#play').click(function() {
+		 $.each(tracks, function(i) {
+			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
+			console.log(tracks[i]);
+			post_song(tracks[i].path);
+			url = '/';
+	 	});
+
 	})
 
 	$('#get_songs').click(function() {
@@ -162,19 +177,24 @@
 		song_list.empty();	
 		$.getJSON(getUrl, function(result) {
 			tracks = result.track_list;
-			tracks.push(result.track_list[0]); //TODO: Remove this once you can load more than one song
-			console.log(result);
-			var li = $('<li/>')
-			.addClass("list-group-item")
-			.attr('role', 'groupitme')
-			.text(tracks[0].title)
-			.appendTo(song_list);
-			var span = $('<span/>')
-			.addClass('badge')
-			.text(' by ' + tracks[0].artist)
-			.appendTo(li);
+			$.each(tracks, function(i) {
+				console.log(result);
+				var li = $('<li/>')
+				.addClass("list-group-item")
+				.attr('role', 'groupitme')
+				.text(tracks[i].title)
+				.appendTo(song_list);
+				var span = $('<span/>')
+				.addClass('badge')
+				.text(' by ' + tracks[i].artist)
+				.appendTo(li);
+			});
 		});
 	})
+
+$("#stop").click( function() {
+	location.reload()  	
+})
 
       </script>
    </body>
