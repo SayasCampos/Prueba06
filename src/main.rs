@@ -23,7 +23,7 @@ use rocket_contrib::json::Json;
 use rodio::Source;
 use std::cell::RefCell;
 
-use qr2term::print_qr; // for later use when IP is no longer static
+//use qr2term::print_qr; // for later use when IP is no longer static
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
@@ -34,11 +34,11 @@ thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(
 
 #[derive(Serialize)]
 struct MyTrack {
-    track_list: Vec<Track> 
+    track_list: Vec<Track>,
 }
 
-fn change_cover <P: AsRef<Path>> (file_path: P) {
-//fn change_cover new<P: AsRef<Path>> (file_path: P) {
+fn change_cover<P: AsRef<Path>>(file_path: P) {
+    //fn change_cover new<P: AsRef<Path>> (file_path: P) {
     let hard_code_file = Path::new("media/victory.mp3");
     let temp_img = Path::new("static/img/temp.png");
     let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
@@ -47,7 +47,7 @@ fn change_cover <P: AsRef<Path>> (file_path: P) {
     if let Some(p) = pic {
         match image::load_from_memory(&p.data) {
             Ok(image) => {
-                image.save(&temp_img);
+                image.save(&temp_img).unwrap();
             }
             _ => println!("Couldn't load image"),
         };
@@ -57,12 +57,12 @@ fn change_cover <P: AsRef<Path>> (file_path: P) {
 }
 
 #[post("/stop")]
-fn stop(){
-        SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
-            sink.play();
-            thread::sleep(Duration::from_millis(340000));
-        });
+fn stop() {
+    SINK.with(|sink_cell| {
+        let sink = sink_cell.borrow_mut();
+        sink.play();
+        thread::sleep(Duration::from_millis(340000));
+    });
 }
 
 #[post("/media/<id>")]
@@ -79,20 +79,20 @@ fn play_victory(id: &rocket::http::RawStr) -> String {
     println!("{:?}", duration);
     let file = std::fs::File::open(&path).unwrap();
 
-//////////////////basis for the wrapped code found here, and any code) resembling this code
-//////////////////(any code calling SINK.with()) can be found here
-//////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
+    //////////////////basis for the wrapped code found here, and any code) resembling this code
+    //////////////////(any code calling SINK.with()) can be found here
+    //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
     //DEVICE.with(|device_cell| {
-        SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
-            let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
-            //TODO: Pause it here. This will no longer be the 
-            //play function, but the load songs function, or we 
-            //can move a load songs functionality to another function.
-            sink.append(source);
-        });
+    SINK.with(|sink_cell| {
+        let sink = sink_cell.borrow_mut();
+        let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
+        //TODO: Pause it here. This will no longer be the
+        //play function, but the load songs function, or we
+        //can move a load songs functionality to another function.
+        sink.append(source);
+    });
     //});
-////////////////end wrapped code
+    ////////////////end wrapped code
 
     println!("{}", _current_song.title);
 
@@ -109,11 +109,9 @@ fn get_songs() -> Json<MyTrack> {
     let mut track_list: Vec<Track> = Vec::new();
     track_list.push(_current_song);
     track_list.push(_next_song);
-    let tracks: MyTrack = MyTrack{track_list};
+    let tracks: MyTrack = MyTrack { track_list };
     Json(tracks)
 }
-    
-
 
 #[derive(Debug, Serialize)]
 struct Context<'a, 'b> {
@@ -167,6 +165,6 @@ fn main() {
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }
 
-//    print_qr("http://192.168.1.32:8000");
+    //    print_qr("http://192.168.1.32:8000");
     rocket().launch();
 }

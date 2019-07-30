@@ -1,5 +1,5 @@
-use std::path::{Path, PathBuf};
 use mp3_duration;
+use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 #[derive(Serialize)]
@@ -16,7 +16,7 @@ pub struct Track {
 }
 
 impl Default for Track {
-    fn default() -> Self{
+    fn default() -> Self {
         Track {
             path: None,
             title: "unknown".to_string(),
@@ -41,7 +41,7 @@ impl Track {
                 artist: file.artist().unwrap_or("Unknown").to_string(),
                 genre: file.genre().unwrap_or("Unknown").to_string(),
                 year: file.year().unwrap_or(0),
-                duration:  mp3_duration::from_path(file_path.as_ref()).unwrap(),
+                duration: mp3_duration::from_path(file_path.as_ref()).unwrap(),
                 tags: Vec::new(),
                 cover: Some(Path::new("static/img/album/current-cover.png").to_path_buf()),
             },
