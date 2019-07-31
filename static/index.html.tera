@@ -37,7 +37,8 @@
 
 
 
-      <section id="sample" style="background: url(img/underwaterBubbles.jpg) center center no-repeat; background-size: cover;" class="sample-test">
+
+<section id="sample" style="background: url(img/background/underwater-bubbles.jpg) center center no-repeat; background-size: cover;" class="sample-test">
 <div class="row">
   <div class="col-sm-3">
          <br>
@@ -56,7 +57,7 @@
   </ul>
   </div>
   <div class="col-sm-6">
-            <img src="img/blankAlbum.jpg" align="bottom" alt="Album art" width="500" height="500"/>
+            <img src="img/album/cd-cover-blank.png" align="bottom" alt="Album art" width="500" height="500"/>
             <br><br>
             <div size="24" data-animate="fadeInUp">'
 		    <big><font id="song_info" color="white"><strong>Song info</strong></font></big>
@@ -115,10 +116,11 @@
          <div class="container">
             <div class="row">
                <div class="col-md-6 text-left text-white">
-                  Last updated in July of 2019
+                  Last updated in August of 2019
                </div>
                <div class="col-md-6 text-right text-lg-right text-white">
-                  <p><a href="https://getbootstrap.com/" target="_link">Powered by &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/></p>
+                  <p>Powered by<a href="https://getbootstrap.com/" target="_link"> &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/>
+                  <a href="https://rocket.rs/" target="_link"> &nbsp;<img src="img/rust-rocket.png" align="right" alt="Bootstrap" width="25" height="25"/></p>
                </div>
             </div>
          </div>
