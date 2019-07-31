@@ -58,9 +58,8 @@
 
          <br>
          <div class="btn-group mr-4" role="group" aria-label="Player">
-            <form action="/" method="post" accept-charset="utf-8">
-               <button  class="btn btn-secondary btn-lg">
-               <i class="fa fa-step-backward"></i>
+               <button id="pause" class="btn btn-secondary btn-lg">
+               <i class="fa fa-pause"></i>
                </button>
             </form>
             <button  id="play" class="btn btn-secondary btn-lg"type="submit" value="play_victory">
@@ -69,6 +68,7 @@
                <button id="stop" class="btn btn-secondary btn-lg">
                <i class="fa fa-stop"></i>
                </button>
+	       <!--
             <form action="/" method="post" accept-charset="utf-8">
                <button  class="btn btn-secondary btn-lg">
                <i class="fa fa-step-forward"></i>
@@ -84,6 +84,7 @@
                <i class="fa fa-volume-up"></i>
                </button> 
             </form>
+	    -->
          </div>
 
 
@@ -133,7 +134,7 @@
          	name:"play_victory",
          	id:play
          }	
-	 var song_list = $("#avail_songs");	
+	var song_list = $("#avail_songs");	
 
 	function post_song(song_title) {
 		url += song_title;
@@ -161,38 +162,23 @@
 			}
 		}, time)
 	}
-  
-         $('#load_songs').click(function() {
-		my_loop(timeDelay);		
-		 /*
-		 url = "/media";
-		 console.log(url);
-		 data: JSON.stringify(track_struct);
-		 contentType: 'application/json';
-		$.post(url, function(data, status){
-			console.log(`${track_struct} and status is ${status}`)
+ 
+	function postTracks() {
+		$.ajax({
+			url: '/load_songs',
+			type: 'POST',
+			data: JSON.stringify(track_struct),
+			dataType: 'json',
+			contentType: 'application/json'
 		});
-		*/
+	}
 
-	})
-
-	$('#play').click(function() {
-		$.post(playUrl, function(status){
-			console.log(`status is ${status}`)
-		});
-
-	})
-
-	$('#stop').click(function() {
-		$.post(stopUrl, function(status){
-			console.log(`status is ${status}`)
-		});
-	})	
-
-	$('#get_songs').click(function() {
+	function get_tracks(){
 		empty_track_list();
 		song_list.empty();	
 		$.getJSON(getUrl, function(result) {
+
+			$('.list-group-item').remove();
 			track_struct = result;
 			tracks = result.track_list;
 			$.each(tracks, function(i) {
@@ -207,9 +193,47 @@
 				.text(' by ' + tracks[i].artist)
 				.appendTo(li);
 			});
-		});
+		}); 
+	}
+
+         $('#load_songs').click(function() {
+		 postTracks();
+
 	})
 
+	$('#play').click(function() {
+		for(i = 0; i < tracks.length/2; i++)
+		{
+			$.post(playUrl, function(status){
+				console.log(`status is ${status}`)
+			});
+		}
+
+	})
+
+	$('#pause').click(function() {
+		for(i = 0; i < tracks.length/2; i++)
+		{
+			$.post("/pause", function(status){
+				console.log(`status is ${status}`)
+			});
+		}
+
+	})
+
+	$('#stop').click(function() {
+		for(i = 0; i < tracks.length/2; i++)
+		{
+			$.post(stopUrl, function(status){
+				console.log(`status is ${status}`)
+			});
+		}
+	})	
+
+	$('#get_songs').click(get_tracks())
+
+	//load the songs as soon as the page loads
+	window.onload = get_tracks;
 
       </script>
    </body>

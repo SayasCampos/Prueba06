@@ -72,6 +72,15 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 
     new_track
 }
+
+#[post("/pause")]
+fn pause(){
+        SINK.with(|sink_cell| {
+            let sink = sink_cell.borrow_mut();
+            sink.pause();
+        });
+}
+
 #[post("/stop")]
 fn stop(){
         SINK.with(|sink_cell| {
@@ -81,46 +90,30 @@ fn stop(){
 }
 
 #[post("/play")]
-fn play(){
+fn play() -> String{
         SINK.with(|sink_cell| {
             let sink = sink_cell.borrow_mut();
             sink.set_volume(1.0);
             sink.play();
+            thread::sleep(Duration::from_millis(100));
         });
+
+        "success".to_string()
 }
 
-//TODO change this to take the songs name, 
-//and then search the database for the track
-//then load the track media path to the 
-
-#[post("/media/<_album>/<id>")]
-fn load_songs(id: &rocket::http::RawStr, _album: &rocket::http::RawStr ) {
-    //let device = rodio::default_output_device().unwrap();
-    let mut path: String = "media/".to_string();
-    path.push_str(&_album.to_string());
-    path.push_str("/");
-    path.push_str(&id.to_string());
-    let duration = mp3_duration::from_path(&path).unwrap();
-    let mill_dur = duration.as_millis() as u64;
-    let file = std::fs::File::open(&path).unwrap();
-    let file2 = std::fs::File::open(&path).unwrap();
-
-//////////////////basis for the wrapped code found here, and any code) resembling this code
-//////////////////(any code calling SINK.with()) can be found here
-//////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
-        SINK.with(|sink_cell| {
+#[post("/load_songs", format="json", data="<my_track>")]
+fn load_songs(my_track: Json<MyTrack>) {
+    SINK.with(|sink_cell| {
+        let track_list: Vec<Track> = my_track.0.track_list; 
+        for track in track_list{
+            let file = std::fs::File::open(&track.path.unwrap()).unwrap();
             let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
             //let sink = sink_cell.borrow_mut();
             sink_cell.borrow_mut().append(source);
             println!("sink's length: {}", sink_cell.borrow_mut().len());
             sink_cell.borrow_mut().pause();
-        });
-////////////////end wrapped code
-}
-
-#[post("/media", format="json", data = "<my_track>")]
-fn load_songs_test(my_track: Json<MyTrack>) {
-    println!("track: {}", my_track.track_list[0].album);
+        }
+    });
 }
 
 
@@ -165,7 +158,7 @@ fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-        .mount("/", routes![play, stop, index, load_songs, get_songs, load_songs_test])
+        .mount("/", routes![pause, play, stop, index, load_songs, get_songs])
         .attach(Template::fairing())
 }
 
