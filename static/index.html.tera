@@ -44,8 +44,14 @@
          <br>
          <br>
          <br>
+	 <!--
 <button  id="get_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
             Get Available Songs</button> 
+	 -->
+ <div size="24" data-animate="fadeInUp">'
+		    <big><font color="white"><strong>Available Songs</strong></font></big>
+	    </div>
+
 <ul id="avail_songs" class="list-group">
   </ul>
   </div>
@@ -53,10 +59,14 @@
             <img src="img/blankAlbum.jpg" align="bottom" alt="Album art" width="500" height="500"/>
             <br><br>
             <div size="24" data-animate="fadeInUp">'
-		    <big><font id="song_info" color="grey"><strong>Song info</strong></font></big>
+		    <big><font id="song_info" color="white"><strong>Song info</strong></font></big>
 	    </div>
 
          <br>
+	 <button  id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
+            load songs</button> 
+	 </br>
+	 <br>
          <div class="btn-group mr-4" role="group" aria-label="Player">
                <button id="pause" class="btn btn-secondary btn-lg">
                <i class="fa fa-pause"></i>
@@ -94,8 +104,6 @@
          <br>
          <br>
          <br>
-<button  id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
-            Load Songs</button> 
 
 <ul class="list-group">
 </ul>
