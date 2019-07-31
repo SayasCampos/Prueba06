@@ -30,7 +30,7 @@ thread_local!(static DEVICE: RefCell<rodio::Device> = RefCell::new(rodio::defaul
 thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap())));
 /////////////////end wrapped code
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 struct MyTrack {
     track_list: Vec<Track> 
 }
@@ -53,46 +53,76 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
     track_vec
 }
 
+fn get_track(track_name: String) -> mapgen::track::Track {
+    let media_dir = Path::new("media/");
+    let music_lib = get_map(&media_dir);
+    let mut new_track: Track = Track::new("/media");
+        
+    match music_lib {
+        Ok(a) => {
+            for b in a.keys() {
+                let track = a.get(b).unwrap();
+                if track.title == track_name {
+                    new_track = track.clone();
+                }
+            }
+        }
+        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
+    }
+
+    new_track
+}
 #[post("/stop")]
 fn stop(){
         SINK.with(|sink_cell| {
             let sink = sink_cell.borrow_mut();
-            sink.play();
-            thread::sleep(Duration::from_millis(340000));
+            sink.stop();
         });
 }
 
-#[post("/media/<id>")]
-fn load_songs(id: &rocket::http::RawStr) -> String {
+#[post("/play")]
+fn play(){
+        SINK.with(|sink_cell| {
+            let sink = sink_cell.borrow_mut();
+            sink.set_volume(1.0);
+            sink.play();
+        });
+}
+
+//TODO change this to take the songs name, 
+//and then search the database for the track
+//then load the track media path to the 
+
+#[post("/media/<_album>/<id>")]
+fn load_songs(id: &rocket::http::RawStr, _album: &rocket::http::RawStr ) {
     //let device = rodio::default_output_device().unwrap();
-    let mut path = "media/".to_string();
-    path.push_str(id.as_str());
-    let _current_song_path = Path::new(&path);
+    let mut path: String = "media/".to_string();
+    path.push_str(&_album.to_string());
+    path.push_str("/");
+    path.push_str(&id.to_string());
     let duration = mp3_duration::from_path(&path).unwrap();
     let mill_dur = duration.as_millis() as u64;
-    let _current_song: Track = Track::new(_current_song_path);
-    println!("{:?}", duration);
     let file = std::fs::File::open(&path).unwrap();
+    let file2 = std::fs::File::open(&path).unwrap();
 
 //////////////////basis for the wrapped code found here, and any code) resembling this code
 //////////////////(any code calling SINK.with()) can be found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
-    //DEVICE.with(|device_cell| {
         SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
             let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
-            //TODO: Pause it here. This will no longer be the 
-            //play function, but the load songs function, or we 
-            //can move a load songs functionality to another function.
-            sink.append(source);
+            //let sink = sink_cell.borrow_mut();
+            sink_cell.borrow_mut().append(source);
+            println!("sink's length: {}", sink_cell.borrow_mut().len());
+            sink_cell.borrow_mut().pause();
         });
-    //});
 ////////////////end wrapped code
-
-    println!("{}", _current_song.title);
-
-    _current_song.title.to_string()
 }
+
+#[post("/media", format="json", data = "<my_track>")]
+fn load_songs_test(my_track: Json<MyTrack>) {
+    println!("track: {}", my_track.track_list[0].album);
+}
+
 
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
@@ -135,13 +165,13 @@ fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-        .mount("/", routes![stop, index, load_songs, get_songs])
+        .mount("/", routes![play, stop, index, load_songs, get_songs, load_songs_test])
         .attach(Template::fairing())
 }
 
 fn main() {
     // Example playlist entry
-
+/*
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
 
@@ -154,7 +184,7 @@ fn main() {
             }
         }
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
-    }
+    }*/
 
     rocket().launch();
 }

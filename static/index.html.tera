@@ -93,6 +93,9 @@
          <br>
          <br>
          <br>
+<button  id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
+            Load Songs</button> 
+
 <ul class="list-group">
 </ul>
   </div>
@@ -119,29 +122,26 @@
       <script src="js/front.js"></script>
       <script>
 	 var tracks = [];
+	 var track_struct;
          var url = '/';
 	 var i = 0;
 	 var timeDelay = 0;
 	 const getUrl = "/get_songs";
+	 const stopUrl = "/stop";
+	 const playUrl = "/play";
          const data={
          	name:"play_victory",
          	id:play
          }	
 	 var song_list = $("#avail_songs");	
 
-	function post_song(song_path) {
-	/*	
-		//TODO: Remove this once you can figure out how to 
-		//delay for the song, and still have 
-		//the track play. 
-		$.ajaxSetup({
-			async: false
+	function post_song(song_title) {
+		url += song_title;
+		$.post(url, function(track_struct, status){
+			console.log(`${track_struct} and status is ${status}`)
 		});
-		*/
-		url += song_path;
-		$.post(url, function(data, status){
-			console.log(`${data} and status is ${status}`)
-		});
+
+		url = '/';
 	}
 
 	function empty_track_list() {
@@ -156,26 +156,44 @@
 			i++;
 			if ( i < tracks.length)
 			{
-				timeDelay = 0;
+				timeDelay = 1000;
 				my_loop(timeDelay);
 			}
 		}, time)
 	}
   
-         $('#play').click(function() {
-		 $.each(tracks, function(i) {
-			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
-			console.log(tracks[i]);
-			post_song(tracks[i].path);
-			url = '/';
-	 	});
+         $('#load_songs').click(function() {
+		my_loop(timeDelay);		
+		 /*
+		 url = "/media";
+		 console.log(url);
+		 data: JSON.stringify(track_struct);
+		 contentType: 'application/json';
+		$.post(url, function(data, status){
+			console.log(`${track_struct} and status is ${status}`)
+		});
+		*/
 
 	})
+
+	$('#play').click(function() {
+		$.post(playUrl, function(status){
+			console.log(`status is ${status}`)
+		});
+
+	})
+
+	$('#stop').click(function() {
+		$.post(stopUrl, function(status){
+			console.log(`status is ${status}`)
+		});
+	})	
 
 	$('#get_songs').click(function() {
 		empty_track_list();
 		song_list.empty();	
 		$.getJSON(getUrl, function(result) {
+			track_struct = result;
 			tracks = result.track_list;
 			$.each(tracks, function(i) {
 				console.log(result);
@@ -192,9 +210,6 @@
 		});
 	})
 
-$("#stop").click( function() {
-	location.reload()  	
-})
 
       </script>
    </body>
