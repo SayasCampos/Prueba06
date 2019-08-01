@@ -10,7 +10,7 @@
       <!-- Bootstrap CSS-->
       <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
       <!-- Font Awesome CSS-->
-      <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
       <!-- owl carousel-->
       <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
       <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
