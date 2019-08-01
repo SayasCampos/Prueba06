@@ -96,6 +96,9 @@
                </button> 
             </form>
 	    -->
+            <button  id="fullscreen" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <i class="fa fa-expand"></i>
+            </button>
          </div>
 
 
@@ -131,6 +134,7 @@
       <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
       <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
       <script src="js/front.js"></script>
+      <script src="js/fullscreen.js"></script>
       <script>
 	 var tracks = [];
 	 var track_struct;
