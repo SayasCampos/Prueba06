@@ -2,7 +2,7 @@ use mp3_duration;
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Track {
     pub path: Option<PathBuf>,
     pub title: String,
