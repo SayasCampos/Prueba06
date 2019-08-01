@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Rustio</title>
+      <meta name="description" content="A media player powered by Rust.">
+      <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- Bootstrap CSS-->
+      <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+      <!-- Font Awesome CSS-->
+      <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+      <!-- owl carousel-->
+      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+      <!-- animate.css-->
+      <link rel="stylesheet" href="vendor/animate.css/animate.css">
+      <!-- stylesheet-->
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <body>
+      <!-- Reference item-->
+      <!-- navbar-->
+      <header class="header">
+      </header>
+
+
+
+
+<section id="sample" style="background: url(img/background/car-radio.jpeg) center center no-repeat; background-size: cover;" class="sample-test">
+
+
+
+
+
+  <div class="container">
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/groovesalad.jpg" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Electro</h3>
+            </button>            
+        </div>
+        <div class="col-md-2">
+            <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/u80s-120.png" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1980s</h3>
+            </button>            
+        </div>
+        <div class="col-md-2">
+             <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
+            </button>           
+        </div>
+        <div class="col-md-2">
+             <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
+            </button>           
+        </div>
+        <div class="col-md-2">
+             <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
+            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
+            </button>           
+        </div>
+    </div>
+      
+      
+      
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+
+                <div class="col-md-12" align="left">
+                                    <br><br><br><br>
+                    <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
+                    <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-stop"></i></span></div>
+                    <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Stop</h3>
+                    </button>                  
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <br><br><br><br>
+                <div class="col-md-12" align="right">
+                    <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="relocate_home()">
+                    <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
+                    <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
+                    </button>                  
+                </div>
+        </div>   
+    </div>
+      
+      
+  </div>
+
+
+</section>
+       
+      <!-- Footer-->
+      <footer class="main-footer"></footer>
+       
+      <!-- JavaScript files-->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
+      <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+      <script src="js/front.js"></script>
+      <script src="js/fullscreen.js"></script>
+      <script src="fontawesome.js"></script>
+      <script src="fontawesome.min.js"></script>
+      <script>function relocate_home(){location.href = "index.html.tera";}</script>
+   </body>
+</html>

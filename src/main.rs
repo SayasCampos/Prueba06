@@ -39,10 +39,8 @@ struct MyTrack {
 
 fn change_cover<P: AsRef<Path>>(file_path: P) {
     //fn change_cover new<P: AsRef<Path>> (file_path: P) {
-    let hard_code_file = Path::new("media/victory.mp3");
     let temp_img = Path::new("static/img/temp.png");
-    let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
-    let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
+    let tag = id3::Tag::read_from_path(&file_path).unwrap();
     let pic = tag.pictures().next();
     if let Some(p) = pic {
         match image::load_from_memory(&p.data) {

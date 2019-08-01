@@ -1,6 +1,6 @@
 // https://stackoverflow.com/questions/3900701/onclick-go-full-screen
-function requestFullScreen() {
-
+function requestFullScreen()
+{
   var el = document.body;
 
   // Supports most browsers and their versions.
