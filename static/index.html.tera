@@ -163,11 +163,10 @@
 		setTimeout(function () {
 			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
 			console.log(tracks[i]);
-			post_song(tracks[i].path);
 			i++;
 			if ( i < tracks.length)
 			{
-				timeDelay = 1000;
+				timeDelay = tracks[i].duration.secs * 1000;
 				my_loop(timeDelay);
 			}
 		}, time)
@@ -208,7 +207,6 @@
 
          $('#load_songs').click(function() {
 		 postTracks();
-
 	})
 
 	$('#play').click(function() {
@@ -218,6 +216,9 @@
 				console.log(`status is ${status}`)
 			});
 		}
+	      i = 0;
+	      my_loop(0);
+	      i = 0;
 
 	})
 
@@ -228,6 +229,7 @@
 				console.log(`status is ${status}`)
 			});
 		}
+	      i = 0;
 
 	})
 
@@ -238,6 +240,7 @@
 				console.log(`status is ${status}`)
 			});
 		}
+	      i = 0;
 	})	
 
 	$('#get_songs').click(get_tracks())

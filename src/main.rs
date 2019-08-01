@@ -105,8 +105,8 @@ fn pause(){
 #[post("/stop")]
 fn stop(){
         SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
-            sink.stop();
+            sink_cell.borrow_mut().stop();
+            thread::sleep(Duration::from_millis(100));
         });
 }
 
@@ -129,10 +129,11 @@ fn load_songs(my_track: Json<MyTrack>) {
         for track in track_list{
             let file = std::fs::File::open(&track.path.unwrap()).unwrap();
             let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
+            let new_source = source.buffered();
             //let sink = sink_cell.borrow_mut();
-            sink_cell.borrow_mut().append(source);
-            println!("sink's length: {}", sink_cell.borrow_mut().len());
+            sink_cell.borrow_mut().append(new_source.clone());
             sink_cell.borrow_mut().pause();
+            println!("sink's length: {}\nsong title: {}", sink_cell.borrow_mut().len(), track.title);
         }
     });
 }
