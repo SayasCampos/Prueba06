@@ -120,6 +120,22 @@ fn play() -> String{
         "success".to_string()
 }
 
+
+#[post("/radio")]
+fn radio() {
+    gst::init();
+    let mut playbin = gst::PlayBin::new("audio_player").expect("Couldn't create playbin");
+    //playbin.set_uri(&"http://ice3.somafm.com/groovesalad-128-mp3");
+    //playbin.set_uri(&"https://stream5.opb.org/radio_player.mp3");
+    //playbin.set_uri(&"http://ice1.somafm.com/u80s-128-mp3");
+    playbin.set_uri(&"http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3");
+
+    playbin.play();
+    loop {}
+}
+
+
+
 #[post("/load_songs", format="json", data="<my_track>")]
 fn load_songs(my_track: Json<MyTrack>) {
     SINK.with(|sink_cell| {

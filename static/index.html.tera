@@ -1,113 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <title>Rustio</title>
-      <meta name="description" content="A media player powered by Rust.">
-      <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- Bootstrap CSS-->
-      <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-      <!-- Font Awesome CSS-->
-      <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
-      <!-- owl carousel-->
-      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
-      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
-      <!-- animate.css-->
-      <link rel="stylesheet" href="vendor/animate.css/animate.css">
-      <!-- stylesheet-->
-      <link rel="stylesheet" href="css/style.css">
-   </head>
-   <body>
-      <!-- Reference item-->
-      <!-- navbar-->
-      <header class="header">
-      </header>
 
+<head>
+    <meta charset="utf-8">
+    <title>Rustio</title>
+    <style>
+        body {
+            background-image: url(img/background/gradient-42.jpg);
+        }
+    </style>
+    <meta name="description" content="A media player powered by Rust.">
+    <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- animate.css-->
+    <link rel="stylesheet" href="vendor/animate.css/animate.css">
+    <!-- stylesheet-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
+<body>
+    <!-- Reference item-->
+    <!-- navbar-->
+    <header class="header">
+    </header>
 
+    <section id="sample">
 
-<section id="sample" style="background: url(img/background/blue-space.jpeg) center center no-repeat; background-size: cover;" class="sample-test">
-
-
-
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-12 header"><center><font color="white"><strong>Header</strong></font></center></div>
-    </div>
-    <div class="row">
-      <div class="col-4 navigation-menu"><font color="white"><strong>Menu</strong></font></div>
-      <div class="col-8 main-content">
-	<div class="row">
-	<div class="col-4 option-one">
-        <button  id="map-page" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
-            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-map-marker-alt"></i></span></div>
-            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;NAV&nbsp;</h3>
-        </button>
-	    </div>
-	<div class="col-4 option-two">
-
-        <button  id="radio-player" class="btn btn-secondary btn-lg"type="submit" onclick="relocate_radio()">
-        
-            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-broadcast-tower"></i></span></div>
-            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Radio</h3>
-</button>
-        
-        
-	</div>
-
-	</div>
-    <br>
-	<div class="row">
-	<div class="col-4 option-one">
-        
-            <button  id="music-player" class="btn btn-secondary btn-lg"type="submit" onclick="relocate_player()">
-
-            
-            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fab fa-itunes"></i></span></div>
-            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;MP3&nbsp;</h3>
-            </button>
-
-
-	</div>
-
-
-
-	<div class="col-4 option-two">
-        <button  id="home-screen" class="btn btn-secondary btn-lg"type="submit" onclick="relocate_home()">
-            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
-            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
-        </button>
-	</div>
-	</div>
-	</div>
-    </div>
-    <div class="row">
-        <br>
-      <div class="col-12 footer"><center>
-          <p><font color="white"><strong>Full-screen mode</strong></font>
-            <button  id="fullscreen" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
-            <i class="fa fa-expand"></i>
-            </button>
-              </p>
-</center></div>
-    </div>
-  </div>
-
-
-</section>
-      <!-- Footer-->
-      <footer class="main-footer">
-         <div class="container">
+        <div class="container">
             <div class="row">
-               <div class="col-md-6 text-left text-white">
-                  Last updated in August of 2019
-               </div>
-               <div class="col-md-6 text-right text-lg-right text-white">
-                  <p>Powered by<a href="https://getbootstrap.com/" target="_link"> &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/>
+                <div class="col-12 header">
+                    <center><font color="white"><strong>Menu</strong></font></center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 navigation-menu"><font color="white"><strong>Menu</strong></font></div>
+                <div class="col-8 main-content">
+                    <div class="row">
+                        <div class="col-4 option-one">
+                            <button id="map-page" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_nav()">
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-map-marker-alt"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;NAV&nbsp;</h3>
+                            </button>
+                        </div>
+                        <div class="col-4 option-two">
+
+                            <button id="radio-player" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_radio()">
+
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-broadcast-tower"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Radio</h3>
+                            </button>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4 option-one">
+
+                            <button id="music-player" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_player()">
+
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fab fa-itunes"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;MP3&nbsp;</h3>
+                            </button>
+
+                        </div>
+
+                        <div class="col-4 option-two">
+                            <button id="home-screen" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_settings()">
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-bars"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Config</h3>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+                <div class="col-12 footer">
+                    <center>
+                        <p><font color="white"><strong>Full-screen mode</strong></font>
+                            <button id="fullscreen" class="btn btn-secondary btn-lg" type="submit" onclick="requestFullScreen()">
+                                <i class="fa fa-expand"></i>
+                            </button>
+                        </p>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Footer-->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-left text-white">
+                    Last updated in August of 2019
+                </div>
+                <div class="col-md-6 text-right text-lg-right text-white">
+                    <p>Powered by<a href="https://getbootstrap.com/" target="_link"> &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/>
                   <a href="https://rocket.rs/" target="_link"> &nbsp;<img src="img/rust-rocket.png" align="right" alt="Bootstrap" width="25" height="25"/></p>
                </div>
             </div>
@@ -124,6 +122,8 @@
  <script src="fontawesome.min.js"></script>
       <script>function relocate_home(){location.href = "index.html.tera";}</script>
       <script>function relocate_radio(){location.href = "radio.html.tera";}</script>
-<script>function relocate_player(){location.href = "player.html.tera";}</script>
+      <script>function relocate_player(){location.href = "player.html.tera";}</script>
+      <script>function relocate_nav(){location.href = "nav.html.tera";}</script>
+      <script>function relocate_settings(){location.href = "settings.html.tera";}</script>
    </body>
 </html>

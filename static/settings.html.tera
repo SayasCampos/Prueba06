@@ -49,43 +49,32 @@
                 <br>
                 <br>
                 <br>
-
-
-
-            </div>
-            <div class="col-sm-6">
-                <img src="img/album/cd-cover-blank.png" align="bottom" alt="Album art" width="500" height="500" />
-                <br>
-                <br>
                 <div size="24" data-animate="fadeInUp">'
-                    <big><font id="song_info" color="white"><strong>Song info</strong></font></big>
+                    <big><font color="white"><strong>Available Songs</strong></font></big>
                 </div>
 
+                <ul id="avail_songs" class="list-group">
+                </ul>
+            </div>
+            <div class="col-sm-6">
 
                 <br>
+                <br>
+
+                <br>
+                <button id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
+                    load songs</button>
+                </br>
+                <br>
                 <div class="btn-group mr-4" role="group" aria-label="Player">
-                    <button id="pause" class="btn btn-secondary btn-lg">
-                        <i class="fa fa-pause"></i>
-                    </button>
+
                     </form>
                     <button id="play" class="btn btn-secondary btn-lg" type="submit" value="play_victory">
                         <i class="fa fa-play"></i>
                     </button>
-                    <button id="stop" class="btn btn-secondary btn-lg">
-                        <i class="fa fa-stop"></i>
-                    </button>
-
-                    <button id="fullscreen" class="btn btn-secondary btn-lg" type="submit" onclick="requestFullScreen()">
-                        <i class="fa fa-expand"></i>
-                    </button>
-
-                    <button id="home-screen" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_settings()">
-                        <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-bars"></i></span></div>
-                        <h3 data-animate="fadeInUp" class="heading mb-3 text-400"></h3>
-                    </button>
             <button id="home-screen" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_home()">
                 <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
-                <h3 data-animate="fadeInUp" class="heading mb-3 text-400"></h3>
+                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
             </button>
                 </div>
 
@@ -126,8 +115,6 @@
         var i = 0;
         var timeDelay = 0;
         const getUrl = "/get_songs";
-        const stopUrl = "/stop";
-        const playUrl = "/play";
 
         var song_list = $("#avail_songs");
 
@@ -193,36 +180,7 @@
             postTracks();
         })
 
-        $('#play').click(function() {
-            for (i = 0; i < tracks.length / 2; i++) {
-                $.post(playUrl, function(status) {
-                    console.log(`status is ${status}`)
-                });
-            }
-            i = 0;
-            my_loop(0);
-            i = 0;
 
-        })
-
-        $('#pause').click(function() {
-            for (i = 0; i < tracks.length / 2; i++) {
-                $.post("/pause", function(status) {
-                    console.log(`status is ${status}`)
-                });
-            }
-            i = 0;
-
-        })
-
-        $('#stop').click(function() {
-            for (i = 0; i < tracks.length / 2; i++) {
-                $.post(stopUrl, function(status) {
-                    console.log(`status is ${status}`)
-                });
-            }
-            i = 0;
-        })
 
         $('#get_songs').click(get_tracks())
 
