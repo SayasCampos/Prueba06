@@ -1,128 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <title>Rustio</title>
-      <meta name="description" content="A media player powered by Rust.">
-      <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <!-- Bootstrap CSS-->
-      <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-      <!-- Font Awesome CSS-->
-      <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
-      <!-- owl carousel-->
-      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
-      <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
-      <!-- animate.css-->
-      <link rel="stylesheet" href="vendor/animate.css/animate.css">
-      <!-- stylesheet-->
-      <link rel="stylesheet" href="css/style.css">
-   </head>
-   <body>
-      <!-- Reference item-->
-      <!-- navbar-->
-      <header class="header">
-         <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-               <a href="#intro" class="navbar-brand scrollTo">Rustio</a>
-               <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><span class="fa fa-bars"></span></button>
-               <div id="navbarcollapse" class="collapse navbar-collapse">
-                  <ul class="navbar-nav ml-auto">
-                  </ul>
-               </div>
-            </div>
-         </nav>
-      </header>
 
+<head>
+    <meta charset="utf-8">
+    <title>Rustio</title>
+    <style>
+        body {
+            background-image: url(img/background/gradient-42.jpg);
+        }
+    </style>
+    <meta name="description" content="A media player powered by Rust.">
+    <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- animate.css-->
+    <link rel="stylesheet" href="vendor/animate.css/animate.css">
+    <!-- stylesheet-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
+<body>
+    <!-- Reference item-->
+    <!-- navbar-->
+    <header class="header">
+    </header>
 
+    <section id="sample">
 
-<section id="sample" style="background: url(img/background/underwater-bubbles.jpg) center center no-repeat; background-size: cover;" class="sample-test">
-<div class="row">
-  <div class="col-sm-3">
-         <br>
-         <br>
-         <br>
-         <br>
-	 <!--
-<button  id="get_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
-            Get Available Songs</button> 
-	 -->
- <div size="24" data-animate="fadeInUp">'
-		    <big><font color="white"><strong>Available Songs</strong></font></big>
-	    </div>
-
-<ul id="avail_songs" class="list-group">
-  </ul>
-  </div>
-  <div class="col-sm-6">
-            <img src="img/album/cd-cover-blank.png" align="bottom" alt="Album art" width="500" height="500"/>
-            <br><br>
-            <div size="24" data-animate="fadeInUp">'
-		    <big><font id="song_info" color="white"><strong>Song info</strong></font></big>
-	    </div>
-
-         <br>
-	 <button  id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
-            load songs</button> 
-	 </br>
-	 <br>
-         <div class="btn-group mr-4" role="group" aria-label="Player">
-               <button id="pause" class="btn btn-secondary btn-lg">
-               <i class="fa fa-pause"></i>
-               </button>
-            </form>
-            <button  id="play" class="btn btn-secondary btn-lg"type="submit" value="play_victory">
-            <i class="fa fa-play"></i>
-            </button> 
-               <button id="stop" class="btn btn-secondary btn-lg">
-               <i class="fa fa-stop"></i>
-               </button>
-	       <!--
-            <form action="/" method="post" accept-charset="utf-8">
-               <button  class="btn btn-secondary btn-lg">
-               <i class="fa fa-step-forward"></i>
-               </button> 
-            </form>
-            <form action="/" method="post" accept-charset="utf-8">
-               <button  class="btn btn-secondary btn-lg">
-               <i class="fa fa-volume-down"></i>
-               </button> 
-            </form>
-            <form action="/" method="post" accept-charset="utf-8">
-               <button  class="btn btn-secondary btn-lg">
-               <i class="fa fa-volume-up"></i>
-               </button> 
-            </form>
-	    -->
-            <button  id="fullscreen" class="btn btn-secondary btn-lg"type="submit" onclick="requestFullScreen()">
-            <i class="fa fa-expand"></i>
-            </button>
-         </div>
-
-
-  </div>
-  <div class="col-sm-3">
-         <br>
-         <br>
-         <br>
-         <br>
-
-<ul class="list-group">
-</ul>
-  </div>
-</div>
-</section>
-      <!-- Footer-->
-      <footer class="main-footer">
-         <div class="container">
+        <div class="container">
             <div class="row">
-               <div class="col-md-6 text-left text-white">
-                  Last updated in August of 2019
-               </div>
-               <div class="col-md-6 text-right text-lg-right text-white">
-                  <p>Powered by<a href="https://getbootstrap.com/" target="_link"> &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/>
+                <div class="col-12 header">
+                    <center><font color="white"><strong>Menu</strong></font></center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 navigation-menu"><font color="white"><strong>Menu</strong></font></div>
+                <div class="col-8 main-content">
+                    <div class="row">
+                        <div class="col-4 option-one">
+                            <button id="map-page" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_nav()">
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-map-marker-alt"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;NAV&nbsp;</h3>
+                            </button>
+                        </div>
+                        <div class="col-4 option-two">
+
+                            <button id="radio-player" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_radio()">
+
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-broadcast-tower"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Radio</h3>
+                            </button>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4 option-one">
+
+                            <button id="music-player" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_player()">
+
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fab fa-itunes"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;MP3&nbsp;</h3>
+                            </button>
+
+                        </div>
+
+                        <div class="col-4 option-two">
+                            <button id="home-screen" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_settings()">
+                                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-bars"></i></span></div>
+                                <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Config</h3>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+                <div class="col-12 footer">
+                    <center>
+                        <p><font color="white"><strong>Full-screen mode</strong></font>
+                            <button id="fullscreen" class="btn btn-secondary btn-lg" type="submit" onclick="requestFullScreen()">
+                                <i class="fa fa-expand"></i>
+                            </button>
+                        </p>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Footer-->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-left text-white">
+                    Last updated in August of 2019
+                </div>
+                <div class="col-md-6 text-right text-lg-right text-white">
+                    <p>Powered by<a href="https://getbootstrap.com/" target="_link"> &nbsp;<img src="img/bootstrap-stack.png" align="right" alt="Bootstrap" width="25" height="25"/>
                   <a href="https://rocket.rs/" target="_link"> &nbsp;<img src="img/rust-rocket.png" align="right" alt="Bootstrap" width="25" height="25"/></p>
                </div>
             </div>
@@ -135,123 +118,12 @@
       <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
       <script src="js/front.js"></script>
       <script src="js/fullscreen.js"></script>
-      <script>
-	 var tracks = [];
-	 var track_struct;
-         var url = '/';
-	 var i = 0;
-	 var timeDelay = 0;
-	 const getUrl = "/get_songs";
-	 const stopUrl = "/stop";
-	 const playUrl = "/play";
-         const data={
-         	name:"play_victory",
-         	id:play
-         }	
-	var song_list = $("#avail_songs");	
-
-	function post_song(song_title) {
-		url += song_title;
-		$.post(url, function(track_struct, status){
-			console.log(`${track_struct} and status is ${status}`)
-		});
-
-		url = '/';
-	}
-
-	function empty_track_list() {
-		tracks = [];
-	}
-
-	function my_loop(time) {
-		setTimeout(function () {
-			$("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
-			console.log(tracks[i]);
-			i++;
-			if ( i < tracks.length)
-			{
-				timeDelay = tracks[i].duration.secs * 1000;
-				my_loop(timeDelay);
-			}
-		}, time)
-	}
- 
-	function postTracks() {
-		$.ajax({
-			url: '/load_songs',
-			type: 'POST',
-			data: JSON.stringify(track_struct),
-			dataType: 'json',
-			contentType: 'application/json'
-		});
-	}
-
-	function get_tracks(){
-		empty_track_list();
-		song_list.empty();	
-		$.getJSON(getUrl, function(result) {
-
-			$('.list-group-item').remove();
-			track_struct = result;
-			tracks = result.track_list;
-			$.each(tracks, function(i) {
-				console.log(result);
-				var li = $('<li/>')
-				.addClass("list-group-item")
-				.attr('role', 'groupitme')
-				.text(tracks[i].title)
-				.appendTo(song_list);
-				var span = $('<span/>')
-				.addClass('badge')
-				.text(' by ' + tracks[i].artist)
-				.appendTo(li);
-			});
-		}); 
-	}
-
-         $('#load_songs').click(function() {
-		 postTracks();
-	})
-
-	$('#play').click(function() {
-		for(i = 0; i < tracks.length/2; i++)
-		{
-			$.post(playUrl, function(status){
-				console.log(`status is ${status}`)
-			});
-		}
-	      i = 0;
-	      my_loop(0);
-	      i = 0;
-
-	})
-
-	$('#pause').click(function() {
-		for(i = 0; i < tracks.length/2; i++)
-		{
-			$.post("/pause", function(status){
-				console.log(`status is ${status}`)
-			});
-		}
-	      i = 0;
-
-	})
-
-	$('#stop').click(function() {
-		for(i = 0; i < tracks.length/2; i++)
-		{
-			$.post(stopUrl, function(status){
-				console.log(`status is ${status}`)
-			});
-		}
-	      i = 0;
-	})	
-
-	$('#get_songs').click(get_tracks())
-
-	//load the songs as soon as the page loads
-	window.onload = get_tracks;
-
-      </script>
+      <script src="fontawesome.js"></script>
+ <script src="fontawesome.min.js"></script>
+      <script>function relocate_home(){location.href = "index.html.tera";}</script>
+      <script>function relocate_radio(){location.href = "radio.html.tera";}</script>
+      <script>function relocate_player(){location.href = "player.html.tera";}</script>
+      <script>function relocate_nav(){location.href = "nav.html.tera";}</script>
+      <script>function relocate_settings(){location.href = "settings.html.tera";}</script>
    </body>
 </html>

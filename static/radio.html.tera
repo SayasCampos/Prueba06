@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Rustio</title>
+    <style>
+        body {
+            background-image: url(img/background/gradient-42.jpg);
+        }
+    </style>
+    <meta name="description" content="A media player powered by Rust.">
+    <meta name="author" content="Christopher Teters, Max Smiley, Paul Hubbard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/all.css">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- animate.css-->
+    <link rel="stylesheet" href="vendor/animate.css/animate.css">
+    <!-- stylesheet-->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- gradients-->
+    <link rel="stylesheet" href="css/gradient.css">
+</head>
+
+<body>
+    <!-- Reference item-->
+    <!-- navbar-->
+    <header class="header">
+    </header>
+
+    <section id="options">
+
+        <div class="row" class="card-body gradient-buttons">
+            <div class="col-md-2" class="card-body gradient-buttons">
+                <div class="row" class="card-body gradient-buttons">
+                    <div class="card-body gradient-buttons">
+                        <button id="radio-player" class="btn btn-info btn-lg" type="submit" onclick="relocate_home()">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <br>
+                <div class="row">
+
+                    <div class="card-body gradient-buttons">
+                        <button id="radio" class="btn btn-outline-dark" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News1</h3>
+                        </button>
+                    </div>
+
+
+
+                    <div class="card-body gradient-buttons">
+                        <button id="radio1" class="btn btn-dark" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/groovesalad.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Electro</h3>
+                        </button>
+                    </div>
+
+
+
+                    <div class="card-body gradient-buttons">
+                        <button id="radio2" class="btn btn-primary" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/u80s-120.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1980s</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+                        <button id="radio3" class="btn btn-secondary" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+                        <button id="radio4" class="btn btn-success" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News2</h3>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="card-body gradient-buttons">
+
+                        <button id="radio5" class="btn btn-danger" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News3</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+
+                        <button id="radio6" class="btn btn-warning" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News4</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+
+                        <button id="radio7" class="btn btn-info" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News5</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+
+                        <button id="radio8" class="btn btn-light" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News6</h3>
+                        </button>
+                    </div>
+                    <div class="card-body gradient-buttons">
+
+                        <button id="radio9" class="btn btn-link" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News7</h3>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="card-body gradient-buttons">
+        <button type="button" class="btn btn-outline-primary">Primary</button>
+        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+        <button type="button" class="btn btn-outline-success">Success</button>
+        <button type="button" class="btn btn-outline-danger">Danger</button>
+        <button type="button" class="btn btn-outline-warning">Warning</button>
+        <button type="button" class="btn btn-outline-info">Info</button>
+        <button type="button" class="btn btn-outline-light">Light</button>
+        <button type="button" class="btn btn-outline-dark">Dark</button>
+    </div>
+
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="js/front.js"></script>
+    <script src="js/fullscreen.js"></script>
+    <script src="fontawesome.js"></script>
+    <script src="fontawesome.min.js"></script>
+    <script>
+        function relocate_home() {
+            location.href = "index.html.tera";
+        }
+    </script>
+
+
+    <script>
+        var url = '/';
+        const radioUrl = "/radio";
+
+        $('#radio').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio1').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio2').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio3').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio4').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+
+        $('#radio5').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio6').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio7').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio8').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio9').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+    </script>
+
+</body>
+
+</html>
