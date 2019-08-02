@@ -58,35 +58,41 @@
             <div class="col-md-10">
                 <br>
                 <div class="row">
+
                     <div class="card-body gradient-buttons">
-                        <button id="radio-player" class="btn btn-outline-dark" class="card-body gradient-buttons" type="submit" onclick="requestFullScreen()">
+                        <button id="radio" class="btn btn-outline-dark" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News1</h3>
                         </button>
                     </div>
+
+
+
                     <div class="card-body gradient-buttons">
-                        <button id="radio-player" class="btn btn-dark" type="submit" onclick="requestFullScreen()">
+                        <button id="radio1" class="btn btn-dark" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/groovesalad.jpg" width="50" height="50"></span></div>
                             <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Electro</h3>
                         </button>
                     </div>
+
+
+
                     <div class="card-body gradient-buttons">
-                        <button id="radio-player" class="btn btn-primary" type="submit" onclick="requestFullScreen()">
+                        <button id="radio2" class="btn btn-primary" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/u80s-120.png" width="50" height="50"></span></div>
                             <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1980s</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
-                        <button id="radio-player" class="btn btn-secondary" type="submit" onclick="requestFullScreen()">
+                        <button id="radio3" class="btn btn-secondary" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
                             <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
-
-                        <button id="radio-player" class="btn btn-success" type="submit" onclick="requestFullScreen()">
+                        <button id="radio4" class="btn btn-success" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News2</h3>
                         </button>
                     </div>
                 </div>
@@ -94,37 +100,37 @@
                 <div class="row">
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio-player" class="btn btn-danger" type="submit" onclick="requestFullScreen()">
+                        <button id="radio5" class="btn btn-danger" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News3</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio-player" class="btn btn-warning" type="submit" onclick="requestFullScreen()">
+                        <button id="radio6" class="btn btn-warning" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News4</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio-player" class="btn btn-info" type="submit" onclick="requestFullScreen()">
+                        <button id="radio7" class="btn btn-info" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News5</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio-player" class="btn btn-light" type="submit" onclick="requestFullScreen()">
+                        <button id="radio8" class="btn btn-light" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News6</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio-player" class="btn btn-link" type="submit" onclick="requestFullScreen()">
+                        <button id="radio9" class="btn btn-link" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News7</h3>
                         </button>
                     </div>
                 </div>
@@ -157,6 +163,94 @@
             location.href = "index.html.tera";
         }
     </script>
+
+
+    <script>
+        var url = '/';
+        const radioUrl = "/radio";
+
+        $('#radio').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio1').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio2').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio3').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio4').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+
+        $('#radio5').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio6').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio7').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio8').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio9').click(function() {
+
+		$.post(radioUrl, function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+    </script>
+
 </body>
 
 </html>
