@@ -50,7 +50,7 @@
                 <br>
                 <br>
 		<div size="24" data-animate="fadeInUp">'
-                    <big><font color="white"><strong>Available Songs</strong></font></big>
+                    <big><font color="grey"><strong>Available Songs</strong></font></big>
                 </div>
 
                 <ul id="avail_songs" class="list-group">
@@ -198,6 +198,15 @@
                     timeDelay = tracks[i].duration.secs * 1000;
                     my_loop(timeDelay);
                 }
+		else{
+			//Send the stop at the end
+			//to clear the playlist 
+			//of any extra garbage
+			$.post(stopUrl, function(status) {
+			    console.log(`status is ${status}`)
+			});
+		}
+
             }, time)
         }
 
@@ -263,8 +272,7 @@
                     console.log(`status is ${status}`)
                 });
             }
-            i = 0;
-
+		//my_loop(1000000000);
         })
 
         $('#stop').click(function() {
