@@ -27,11 +27,18 @@ use std::cell::RefCell;
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
-
 thread_local!(static DEVICE: RefCell<rodio::Device> = RefCell::new(rodio::default_output_device().unwrap()));
 thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap())));
 /////////////////end wrapped code
 
+/////////////////////////////////////////////
+////MyTrack:
+////    This struct is used in order to pass 
+////    a vector of tracks back and forth
+////    between the front end and the back end
+////    as a JSON object. 
+//// Function Author: Paul Hubbard
+/////////////////////////////////////////////
 #[derive(Serialize, Deserialize)]
 struct MyTrack {
     track_list: Vec<Track>,
@@ -53,7 +60,12 @@ fn change_cover<P: AsRef<Path>>(file_path: P) {
         println!("No art to load");
     }
 }
-
+///////////////////////////////////////////////////////////////////
+////get_track_list:
+////   This returns a list of all available tracks in a random 
+////   order.
+////  Function Author: Max Smiley / Paul Hubbard
+///////////////////////////////////////////////////////////////////
 fn get_track_list() -> Vec<mapgen::track::Track> {
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
@@ -71,7 +83,16 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
 
     track_vec
 }
-
+///////////////////////////////////////////////////////////////////
+////get_track:
+//// This gets a single track from the list of available tracks
+//// based on whatever track name gets passed in. 
+////    Parameters: 
+////        track_name: This is the name of the track
+////                    you wish to get from the available
+////                    tracks. 
+////    Function Author: Max Smiley / Paul Hubbard
+//////////////////////////////////////////////////////////////////
 fn get_track(track_name: String) -> mapgen::track::Track {
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
@@ -91,7 +112,12 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 
     new_track
 }
-
+/////////////////////////////////////////////////
+////pause:
+////    This pauses the current audio being played
+////    in the audio sink. 
+////       Function Author: Paul Hubbard
+/////////////////////////////////////////////////
 #[post("/pause")]
 fn pause() {
     SINK.with(|sink_cell| {
@@ -99,22 +125,35 @@ fn pause() {
         sink.pause();
     });
 }
-
+////////////////////////////////////////////////
+////stop:
+//// This gets called by a post from the front end
+//// and it removes all of mp3's currently in the
+//// sink, while also stopping the audio. 
+////       Function Author: Paul Hubbard    
+///////////////////////////////////////////////
 #[post("/stop")]
 fn stop() {
     SINK.with(|sink_cell| {
         sink_cell.borrow_mut().stop();
-        thread::sleep(Duration::from_millis(100));
+        let new_sink: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap()));
+        sink_cell.swap(&new_sink);
     });
 }
-
+////////////////////////////////////////////////
+////play:
+//// This function is called from a post coming 
+//// from the front end, and it starts the 
+//// audio sink list, then returns a string
+//// telling the front end it was a success.
+////        Function Author: Paul Hubbard
+////////////////////////////////////////////////
 #[post("/play")]
 fn play() -> String {
     SINK.with(|sink_cell| {
         let sink = sink_cell.borrow_mut();
         sink.set_volume(1.0);
         sink.play();
-        thread::sleep(Duration::from_millis(100));
     });
 
     "success".to_string()
@@ -132,7 +171,20 @@ fn radio() {
     playbin.play();
     loop {}
 }
-
+////////////////////////////////////////////////
+////load_songs:
+//// This function receives a playlist
+//// as a JSON object from the frontend
+//// and loads the songs from their mp3
+//// source into a sink that will play
+//// the audio. 
+////    Parameters:
+////        my_track: This is the JSON object
+////                  that gets sent in from the 
+////                  user. 
+////    Function Author:
+////        Paul Hubbard
+/////////////////////////////////////////////////
 #[post("/load_songs", format = "json", data = "<my_track>")]
 fn load_songs(my_track: Json<MyTrack>) {
     SINK.with(|sink_cell| {
@@ -153,6 +205,14 @@ fn load_songs(my_track: Json<MyTrack>) {
     });
 }
 
+//////////////////////////////////////////////////
+////get_songs:
+//// This function returns all of the
+//// current mp3's available to play
+//// and sends them as a JSON object
+//// back to the front end.
+////    Function Author: Paul Hubbard
+//////////////////////////////////////////////////
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
     let mut track_list: Vec<Track> = Vec::new();
