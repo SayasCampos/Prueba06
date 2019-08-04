@@ -39,10 +39,8 @@ struct MyTrack {
 
 fn change_cover<P: AsRef<Path>>(file_path: P) {
     //fn change_cover new<P: AsRef<Path>> (file_path: P) {
-    let hard_code_file = Path::new("media/victory.mp3");
     let temp_img = Path::new("static/img/temp.png");
-    let temp_tag = id3::Tag::read_from_path(&hard_code_file).unwrap();
-    let tag = id3::Tag::read_from_path(&file_path).unwrap_or(temp_tag);
+    let tag = id3::Tag::read_from_path(&file_path).unwrap();
     let pic = tag.pictures().next();
     if let Some(p) = pic {
         match image::load_from_memory(&p.data) {
@@ -78,7 +76,7 @@ fn get_track(track_name: String) -> mapgen::track::Track {
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
     let mut new_track: Track = Track::new("/media");
-        
+
     match music_lib {
         Ok(a) => {
             for b in a.keys() {
@@ -95,55 +93,71 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 }
 
 #[post("/pause")]
-fn pause(){
-        SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
-            sink.pause();
-        });
+fn pause() {
+    SINK.with(|sink_cell| {
+        let sink = sink_cell.borrow_mut();
+        sink.pause();
+    });
 }
 
 #[post("/stop")]
-fn stop(){
-        SINK.with(|sink_cell| {
-            sink_cell.borrow_mut().stop();
-            thread::sleep(Duration::from_millis(100));
-        });
+fn stop() {
+    SINK.with(|sink_cell| {
+        sink_cell.borrow_mut().stop();
+        thread::sleep(Duration::from_millis(100));
+    });
 }
 
 #[post("/play")]
-fn play() -> String{
-        SINK.with(|sink_cell| {
-            let sink = sink_cell.borrow_mut();
-            sink.set_volume(1.0);
-            sink.play();
-            thread::sleep(Duration::from_millis(100));
-        });
+fn play() -> String {
+    SINK.with(|sink_cell| {
+        let sink = sink_cell.borrow_mut();
+        sink.set_volume(1.0);
+        sink.play();
+        thread::sleep(Duration::from_millis(100));
+    });
 
-        "success".to_string()
+    "success".to_string()
 }
 
-#[post("/load_songs", format="json", data="<my_track>")]
+#[post("/radio")]
+fn radio() {
+    gst::init();
+    let mut playbin = gst::PlayBin::new("audio_player").expect("Couldn't create playbin");
+    //playbin.set_uri(&"http://ice3.somafm.com/groovesalad-128-mp3");
+    //playbin.set_uri(&"https://stream5.opb.org/radio_player.mp3");
+    //playbin.set_uri(&"http://ice1.somafm.com/u80s-128-mp3");
+    playbin.set_uri(&"http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3");
+
+    playbin.play();
+    loop {}
+}
+
+#[post("/load_songs", format = "json", data = "<my_track>")]
 fn load_songs(my_track: Json<MyTrack>) {
     SINK.with(|sink_cell| {
-        let track_list: Vec<Track> = my_track.0.track_list; 
-        for track in track_list{
+        let track_list: Vec<Track> = my_track.0.track_list;
+        for track in track_list {
             let file = std::fs::File::open(&track.path.unwrap()).unwrap();
             let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
             let new_source = source.buffered();
             //let sink = sink_cell.borrow_mut();
             sink_cell.borrow_mut().append(new_source.clone());
             sink_cell.borrow_mut().pause();
-            println!("sink's length: {}\nsong title: {}", sink_cell.borrow_mut().len(), track.title);
+            println!(
+                "sink's length: {}\nsong title: {}",
+                sink_cell.borrow_mut().len(),
+                track.title
+            );
         }
     });
 }
-
 
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
     let mut track_list: Vec<Track> = Vec::new();
     track_list = get_track_list();
-    let tracks: MyTrack = MyTrack{track_list};
+    let tracks: MyTrack = MyTrack { track_list };
     Json(tracks)
 }
 
@@ -178,13 +192,16 @@ fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
 fn rocket() -> Rocket {
     rocket::ignite()
         .mount("/", StaticFiles::from("static/"))
-        .mount("/", routes![pause, play, stop, index, load_songs, get_songs])
+        .mount(
+            "/",
+            routes![pause, play, stop, index, load_songs, get_songs, radio],
+        )
         .attach(Template::fairing())
 }
 
 fn main() {
     // Example playlist entry
-/*
+    /*
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
 
