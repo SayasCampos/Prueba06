@@ -49,18 +49,28 @@
                 <br>
                 <br>
                 <br>
+		<div size="24" data-animate="fadeInUp">'
+                    <big><font color="grey"><strong>Available Songs</strong></font></big>
+                </div>
+
+                <ul id="avail_songs" class="list-group">
+                </ul>
 
 
 
             </div>
             <div class="col-sm-6">
-                <img src="img/album/cd-cover-blank.png" align="bottom" alt="Album art" width="500" height="500" />
+                <img id="album_art" src="img/album/cd-cover-blank.png" align="bottom" alt="Album art" width="500" height="500" />
                 <br>
                 <br>
                 <div size="24" data-animate="fadeInUp">'
                     <big><font id="song_info" color="white"><strong>Song info</strong></font></big>
                 </div>
 
+		<br>
+                <button id="load_songs" class="btn btn-secondary btn-sm" type="submit" value="play_victory" style="width=2em">
+                    load songs</button>
+                </br>
 
                 <br>
                 <div class="btn-group mr-4" role="group" aria-label="Player">
@@ -120,6 +130,7 @@
         }
     </script>
     <script>
+	
         var tracks = [];
         var track_struct;
         var url = '/';
@@ -131,6 +142,17 @@
 
         var song_list = $("#avail_songs");
 
+	////////////////////////////////////////////////
+	//post_songs
+	// 	This function takes a song title and 
+	// 	sends it to the back end rust program to 
+	// 	be added to the list of songs to play 
+	//	Parameters: 
+	// 		song_title: This is the title 
+	//                          the song you wish
+	//			    to hear. 
+	// Function Author: Paul Hubbard
+	////////////////////////////////////////////////
         function post_song(song_title) {
             url += song_title;
             $.post(url, function(track_struct, status) {
@@ -140,22 +162,61 @@
             url = '/';
         }
 
+	///////////////////////////////////////////////
+	//empty_track_list:
+	// 	This clears the tracks array, that holds 
+	// 	all of the Track structs that you wish
+	// 	to hear. 
+	// Function Author: Paul Hubbard 
+	///////////////////////////////////////////////
         function empty_track_list() {
             tracks = [];
         }
 
+	//////////////////////////////////////////////
+	//my_loop
+	//	This function is used to load the appropriate
+	//	album info while the tracks are being 
+	// 	played. 
+	// 	Parameters: 
+	//		time: This is the amount of time
+	//		      in seconds, which then 
+	// 		      gets converted to milliseconds,
+	//		      that you need the album info 
+	// 		      to stay on the screen. 
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         function my_loop(time) {
             setTimeout(function() {
                 $("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
+		new_cover = tracks[i].cover.replace("static/", "");
+		console.log(new_cover);
+		$("#album_art").attr("src", new_cover);
                 console.log(tracks[i]);
                 i++;
                 if (i < tracks.length) {
                     timeDelay = tracks[i].duration.secs * 1000;
                     my_loop(timeDelay);
                 }
+		else{
+			//Send the stop at the end
+			//to clear the playlist 
+			//of any extra garbage
+			$.post(stopUrl, function(status) {
+			    console.log(`status is ${status}`)
+			});
+		}
+
             }, time)
         }
 
+	////////////////////////////////////////////////
+	//postTracks:
+	//	This posts the list of Track structs
+	// 	that you wish to play as a JSON object
+	//	to the back end for processing.
+	// Function Author: Paul Hubbard
+	///////////////////////////////////////////////
         function postTracks() {
             $.ajax({
                 url: '/load_songs',
@@ -211,8 +272,7 @@
                     console.log(`status is ${status}`)
                 });
             }
-            i = 0;
-
+		//my_loop(1000000000);
         })
 
         $('#stop').click(function() {
