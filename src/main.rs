@@ -66,22 +66,21 @@ fn change_cover<P: AsRef<Path>>(file_path: P) {
 ////   order.
 ////  Function Author: Max Smiley / Paul Hubbard
 ///////////////////////////////////////////////////////////////////
+
+/* to do
+ * impl Iterator for Track so we can use collect() on map.keys()
+ */
 fn get_track_list() -> Vec<mapgen::track::Track> {
-    let media_dir = Path::new("media/");
-    let music_lib = get_map(&media_dir);
-    let mut track_vec: Vec<Track> = Vec::new();
-
-    match music_lib {
-        Ok(a) => {
-            for b in a.keys() {
-                let track = a.get(b).unwrap();
-                track_vec.push(track.clone());
+    match get_map(&Path::new("media/")) {
+        Ok(lib) => {
+            let mut track_vec = Vec::new();
+            for t in lib.values() {
+                track_vec.push(t.clone());
             }
+            track_vec
         }
-        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
+        Err(_)  => Vec::new(),
     }
-
-    track_vec
 }
 ///////////////////////////////////////////////////////////////////
 ////get_track:
@@ -94,23 +93,10 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
 ////    Function Author: Max Smiley / Paul Hubbard
 //////////////////////////////////////////////////////////////////
 fn get_track(track_name: String) -> mapgen::track::Track {
-    let media_dir = Path::new("media/");
-    let music_lib = get_map(&media_dir);
-    let mut new_track: Track = Track::new("/media");
-
-    match music_lib {
-        Ok(a) => {
-            for b in a.keys() {
-                let track = a.get(b).unwrap();
-                if track.title == track_name {
-                    new_track = track.clone();
-                }
-            }
-        }
-        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
+    match get_map(&Path::new("media/")) {
+        Ok(lib) => lib.get(&track_name).unwrap().clone(),
+        Err(_)  => Track::default(),
     }
-
-    new_track
 }
 /////////////////////////////////////////////////
 ////pause:

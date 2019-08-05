@@ -31,6 +31,7 @@ impl Default for Track {
     }
 }
 
+
 impl Track {
     pub fn new<P: AsRef<Path>>(file_path: P) -> Track {
         match id3::Tag::read_from_path(file_path.as_ref()) {
