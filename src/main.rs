@@ -159,18 +159,28 @@ fn play() -> String {
     "success".to_string()
 }
 
-#[post("/radio")]
-fn radio() {
+
+////////////////////////////////////////////////
+////radio:
+//// This function plays a internet radio
+//// station when given a correct  web address
+////    Parameters:
+////        url: webaddress of internet radio
+////                  station.
+////
+//// Function Author:
+////    Christopher Teters
+///////////////////////////////////////////////
+#[post("/radio", data = "<url>")]
+fn radio(url: String) -> String{
     gst::init();
     let mut playbin = gst::PlayBin::new("audio_player").expect("Couldn't create playbin");
-    //playbin.set_uri(&"http://ice3.somafm.com/groovesalad-128-mp3");
-    //playbin.set_uri(&"https://stream5.opb.org/radio_player.mp3");
-    //playbin.set_uri(&"http://ice1.somafm.com/u80s-128-mp3");
-    playbin.set_uri(&"http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3");
-
+    playbin.set_uri(&url);
     playbin.play();
-    loop {}
+    "success".to_string()
 }
+
+
 ////////////////////////////////////////////////
 ////load_songs:
 //// This function receives a playlist
