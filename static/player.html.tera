@@ -42,7 +42,7 @@
         </nav>
     </header>
 
-    <section id="sample">
+    <section id="sample" style="background: url(img/background/gradient-42.jpg) center center no-repeat; background-size: cover;">
         <div class="row">
             <div class="col-sm-3">
                 <br>
@@ -110,6 +110,7 @@
                 </ul>
             </div>
         </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </section>
 
     <!-- JavaScript files-->

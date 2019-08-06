@@ -34,7 +34,7 @@
     <header class="header">
     </header>
 
-    <section id="options">
+    <section id="options"style="background: url(img/background/gradient-42.jpg) center center no-repeat; background-size: cover;">
 
         <div class="row" class="card-body gradient-buttons">
             <div class="col-md-2" class="card-body gradient-buttons">
@@ -45,7 +45,7 @@
                             <br>
                             <br>
                             <br>
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
+                            <div class="icon"><span style="font-size: 6em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
                             <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
                             <br>
                             <br>
@@ -61,12 +61,20 @@
                     <br>
                     <br>
                     <br>
-                    <img src="img/map.gif">
+                    <img src="img/map.gif" width="125%" height="125%">
+                    <center>
+                        <p><font color="white"><strong>Full-screen mode</strong></font>
+                            <button id="fullscreen" class="btn btn-secondary btn-lg" type="submit" onclick="requestFullScreen()">
+                                <i class="fa fa-expand"></i>
+                            </button>
+                        </p>
+                    </center>
 
                 </div>
                 <div class="col-md-2"></div>
             </div>
         </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </section>
 
     <!-- JavaScript files-->
