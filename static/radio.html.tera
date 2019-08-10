@@ -45,7 +45,7 @@
                             <br>
                             <br>
                             <br>
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
+                            <div class="icon"><span style="font-size: 6em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
                             <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
                             <br>
                             <br>
@@ -56,22 +56,22 @@
                 </div>
             </div>
             <div class="col-md-10">
-                <br>
+                <br><br>
                 <div class="row">
 
                     <div class="card-body gradient-buttons">
-                        <button id="radio" class="btn btn-outline-dark" type="submit">
+                        <button id="radio" class="btn btn-info" type="submit">
                             <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News1</h3>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;OPB&nbsp;</h3>
                         </button>
                     </div>
 
 
 
                     <div class="card-body gradient-buttons">
-                        <button id="radio1" class="btn btn-dark" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/groovesalad.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Electro</h3>
+                        <button id="radio1" class="btn btn-light" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/Sports-Radio.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Sports</h3>
                         </button>
                     </div>
 
@@ -79,58 +79,59 @@
 
                     <div class="card-body gradient-buttons">
                         <button id="radio2" class="btn btn-primary" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/u80s-120.png" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1980s</h3>
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/edm.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Electro</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
                         <button id="radio3" class="btn btn-secondary" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/1A-party.png" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Pop</h3>
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/groovesalad.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Groov</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
-                        <button id="radio4" class="btn btn-success" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News2</h3>
+                        <button id="radio4" class="btn btn-light" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/u80s-120.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1980s</h3>
                         </button>
                     </div>
                 </div>
-                <br>
+                <br><br><br>
                 <div class="row">
+
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio5" class="btn btn-danger" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News3</h3>
+                        <button id="radio5" class="btn btn-success" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/saw-party.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Party&nbsp;</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio6" class="btn btn-warning" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News4</h3>
+                        <button id="radio6" class="btn btn-primary" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/90s.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">1990s</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
                         <button id="radio7" class="btn btn-info" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News5</h3>
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/air-teshi.jpg" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;Class&nbsp;</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio8" class="btn btn-light" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News6</h3>
+                        <button id="radio8" class="btn btn-warning" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/kpsu.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">KPSU</h3>
                         </button>
                     </div>
                     <div class="card-body gradient-buttons">
 
-                        <button id="radio9" class="btn btn-link" type="submit">
-                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/opb.jpg" width="50" height="50"></span></div>
-                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">News7</h3>
+                        <button id="radio9" class="btn btn-primary" type="submit">
+                            <div class="icon"><span style="font-size: 3em; color: LightBlue;"><img src="img/album/bbc-world-service.png" width="50" height="50"></span></div>
+                            <h3 data-animate="fadeInUp" class="heading mb-3 text-400">&nbsp;BBC&nbsp;</h3>
                         </button>
                     </div>
                 </div>
@@ -138,16 +139,7 @@
         </div>
     </section>
 
-    <div class="card-body gradient-buttons">
-        <button type="button" class="btn btn-outline-primary">Primary</button>
-        <button type="button" class="btn btn-outline-secondary">Secondary</button>
-        <button type="button" class="btn btn-outline-success">Success</button>
-        <button type="button" class="btn btn-outline-danger">Danger</button>
-        <button type="button" class="btn btn-outline-warning">Warning</button>
-        <button type="button" class="btn btn-outline-info">Info</button>
-        <button type="button" class="btn btn-outline-light">Light</button>
-        <button type="button" class="btn btn-outline-dark">Dark</button>
-    </div>
+
 
     <!-- JavaScript files-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -169,82 +161,83 @@
         var url = '/';
         const radioUrl = "/radio";
 
-        $('#radio').click(function() {
 
-		$.post(radioUrl, function(status) {
-		    console.log(`status is ${status}`)
-		});
+        $('#radio').click(function(){
 
-        })
-
-        $('#radio1').click(function() {
-
-		$.post(radioUrl, function(status) {
-		    console.log(`status is ${status}`)
-		});
-
-        })
-
-        $('#radio2').click(function() {
-
-		$.post(radioUrl, function(status) {
-		    console.log(`status is ${status}`)
-		});
-
-        })
-
-        $('#radio3').click(function() {
-
-		$.post(radioUrl, function(status) {
-		    console.log(`status is ${status}`)
-		});
-
-        })
-
-        $('#radio4').click(function() {
-
-		$.post(radioUrl, function(status) {
+		$.post(radioUrl, "https://stream5.opb.org/radio_player.mp3", function(status) {
 		    console.log(`status is ${status}`)
 		});
 
         })
 
 
-        $('#radio5').click(function() {
+        $('#radio1').click(function(){
 
-		$.post(radioUrl, function(status) {
+		$.post(radioUrl, "http://c5icyelb.prod.playlists.ihrhls.com/5227_icy", function(status) {
 		    console.log(`status is ${status}`)
 		});
 
         })
 
-        $('#radio6').click(function() {
+        $('#radio2').click(function(){
 
-		$.post(radioUrl, function(status) {
+		$.post(radioUrl, "http://sc15.shoutcaststreaming.us:8002/", function(status) {
 		    console.log(`status is ${status}`)
 		});
 
         })
 
-        $('#radio7').click(function() {
+        $('#radio3').click(function(){
 
-		$.post(radioUrl, function(status) {
+		$.post(radioUrl, "http://ice3.somafm.com/groovesalad-128-mp3", function(status) {
 		    console.log(`status is ${status}`)
 		});
 
         })
 
-        $('#radio8').click(function() {
+        $('#radio4').click(function(){
 
-		$.post(radioUrl, function(status) {
+		$.post(radioUrl, "http://ice1.somafm.com/u80s-128-mp3", function(status) {
 		    console.log(`status is ${status}`)
 		});
 
         })
 
-        $('#radio9').click(function() {
 
-		$.post(radioUrl, function(status) {
+        $('#radio5').click(function(){
+
+		$.post(radioUrl, "http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3", function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio6').click(function(){
+
+		$.post(radioUrl, "http://1a-90er.radionetz.de/1a-90er.mp3", function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio7').click(function(){
+
+		$.post(radioUrl, "http://musicbird.leanstream.co/JCB003-MP3", function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio8').click(function(){
+		$.post(radioUrl, "http://173.255.221.48:8000/stream", function(status) {
+		    console.log(`status is ${status}`)
+		});
+
+        })
+
+        $('#radio9').click(function(){
+
+		$.post(radioUrl, "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk", function(status) {
 		    console.log(`status is ${status}`)
 		});
 

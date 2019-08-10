@@ -23,13 +23,24 @@ use rocket_contrib::json::Json;
 use rodio::Source;
 use std::cell::RefCell;
 
-//use qr2term::print_qr; // for later use when IP is no longer static
+use qr2term::print_qr; // for later use when IP is no longer static
+
+// Radio stuff
+use gst::prelude::*;
+extern crate gstreamer as gst;
+extern crate gstreamer_player as gst_player;
+extern crate glib;
+
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
 thread_local!(static DEVICE: RefCell<rodio::Device> = RefCell::new(rodio::default_output_device().unwrap()));
 thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap())));
+thread_local!(static PLAYBIN: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap()));
 /////////////////end wrapped code
+
+
+
 
 /////////////////////////////////////////////
 ////MyTrack:
@@ -159,18 +170,104 @@ fn play() -> String {
     "success".to_string()
 }
 
-#[post("/radio")]
-fn radio() {
-    gst::init();
-    let mut playbin = gst::PlayBin::new("audio_player").expect("Couldn't create playbin");
-    //playbin.set_uri(&"http://ice3.somafm.com/groovesalad-128-mp3");
-    //playbin.set_uri(&"https://stream5.opb.org/radio_player.mp3");
-    //playbin.set_uri(&"http://ice1.somafm.com/u80s-128-mp3");
-    playbin.set_uri(&"http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3");
 
-    playbin.play();
-    loop {}
+////////////////////////////////////////////////
+////radio:
+//// This function plays a internet radio
+//// station when given a correct  web address
+////    Parameters:
+////        url: webaddress of internet radio
+////                  station.
+////
+//// Function Author:
+////    Christopher Teters
+///////////////////////////////////////////////
+#[post("/radio", data = "<uri>")]
+fn radio(uri: String) -> String{
+
+/*
+    RADIO.with(|radio_cell| {
+        radio_cell.borrow_mut();
+        let new_radio: RefCell<rodio::Sink> = RefCell::new(gst_player::PlayerGMainContextSignalDispatcher::new(None)));
+    });
+*/
+
+    let playbin = gst::ElementFactory::make("playbin", None).unwrap();
+    playbin
+        .set_property("uri", &uri)
+        .unwrap();
+
+    playbin
+        .connect("audio-tags-changed", false, |values| {
+            let playbin = values[0].get::<glib::Object>().unwrap();
+            let idx = values[1].get::<i32>().unwrap();
+            let tags = playbin
+                .emit("get-audio-tags", &[&idx.to_value()])
+                .unwrap()
+                .unwrap();
+            let tags = tags.get::<gst::TagList>().unwrap();
+
+            if let Some(title) = tags.get::<gst::tags::Title>() {
+                println!("  Title: {}", title.get().unwrap());
+            }
+            None
+        })
+        .unwrap();
+
+    //let bus = playbin.get_bus().unwrap();
+
+    playbin
+        .set_state(gst::State::Playing)
+        .expect("Unable to set the pipeline to the `Playing` state");
+
+    println!("waiting 1.5....");
+    thread::sleep(Duration::from_millis(1500));
+    playbin
+        .set_state(gst::State::Paused)
+        .expect("Unable to set the pipeline to the `Playing` state");
+
+    println!("\nDone.");
+    /*
+    for msg in bus.iter_timed(gst::CLOCK_TIME_NONE) {
+        use gst::MessageView;
+
+        match msg.view() {
+            MessageView::Eos(..) => break,
+            MessageView::Error(err) => {
+                println!(
+                    "Error from {:?}: {} ({:?})",
+                    err.get_src().map(|s| s.get_path_string()),
+                    err.get_error(),
+                    err.get_debug()
+                );
+                break;
+            }
+            MessageView::StateChanged(state_changed) =>
+            {
+                if state_changed
+                    .get_src()
+                    .map(|s| s == playbin)
+                    .unwrap_or(false)
+                    && state_changed.get_current() == gst::State::Playing
+                {
+                    // Generate a dot graph of the pipeline to GST_DEBUG_DUMP_DOT_DIR if defined
+                    let bin_ref = playbin.downcast_ref::<gst::Bin>().unwrap();
+                    bin_ref.debug_to_dot_file(gst::DebugGraphDetails::all(), "PLAYING");
+                }
+            }
+            _ => (),
+        }
+    }
+    playbin
+        .set_state(gst::State::Null)
+        .expect("Unable to set the pipeline to the `Null` state");
+
+    */
+
+    "success".to_string()
 }
+
+
 ////////////////////////////////////////////////
 ////load_songs:
 //// This function receives a playlist
@@ -260,6 +357,7 @@ fn rocket() -> Rocket {
 }
 
 fn main() {
+    gst::init().expect("gstreamer failed to load");
     // Example playlist entry
     /*
     let media_dir = Path::new("media/");
@@ -276,6 +374,6 @@ fn main() {
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }*/
 
-    //    print_qr("http://192.168.1.32:8000");
+        print_qr("http://192.168.1.32:8888");
     rocket().launch();
 }

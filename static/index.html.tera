@@ -32,7 +32,7 @@
     <header class="header">
     </header>
 
-    <section id="sample">
+    <section id="sample" style="background: url(img/background/gradient-42.jpg) center center no-repeat; background-size: cover;">
 
         <div class="container">
             <div class="row">
@@ -95,6 +95,10 @@
                 </div>
             </div>
         </div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     </section>
     <!-- Footer-->
