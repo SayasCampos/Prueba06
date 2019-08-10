@@ -30,7 +30,7 @@ please run the following...
 
     sudo apt-get install libgstreamer-plugins-base1.0-dev
     sudo apt-get install libsdl2-dev
-    sudo apt install libasound2-dev
+    sudo apt-get install libasound2-dev
 
 This program uses Rocket, which requires Rust nightly. To
 build rustadio, first enable nightly if not already enabled
