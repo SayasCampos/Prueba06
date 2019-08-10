@@ -243,6 +243,14 @@
             });
         }
 
+	///////////////////////////////////////////////
+	//get_tracks:
+	//	This gets all of the available tracks
+	//	the rust backend. The tracks are passed
+	//	to the front end as a JSON object that 
+	// 	holds an array of track structs. 
+	// Function Author: Paul Hubbard
+	///////////////////////////////////////////////
         function get_tracks() {
             empty_track_list();
             song_list.empty();
@@ -267,15 +275,28 @@
             });
         }
 
+	///////////////////////////////////////////////
+	//When the button that has the id "load_songs"
+	//gets pressed, the postTracks function sends
+	//the playlist to the rust backend.
+	// Function Author: Paul Hubbard
+	///////////////////////////////////////////////
         $('#load_songs').click(function() {
             postTracks();
         })
 
+	//////////////////////////////////////////////
+	//When the button that has the id "play"
+	//gets pressed, this function calls 
+	//the play funcitonality on the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#play').click(function() {
+		/*
 	    var myDate = new Date();
 	    console.log("wasPaused: " + wasPaused);
 	    startTime = myDate.getTime();
-
+		*/
             for (j = 0; j < tracks.length / 2; j++) {
                 $.post(playUrl, function(status) {
                     console.log(`status is ${status}`)
@@ -284,15 +305,28 @@
             my_loop(0);
             i = 0;
         })
-
+	
+	//////////////////////////////////////////////
+	//When the button that has the id "pause"
+	//this calls the pause functionality 
+	//in the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#pause').click(function() {
+		//this functionality was put in place to try
+		//and update the album info timer after a pause
+		//but I couldn't quite get it working.
+		//the same goes with the wasPaused functionality
+		//in the "#play" function.
+		/*
 		wasPaused = 1;
 	    	console.log("wasPaused from pause: " + wasPaused);
 	        console.log(tracks[currentTrack].duration.secs / 60);
 		clearTimeout(timeOut);
 		var newDate = new Date();
 		timeDelay = (tracks[currentTrack].duration.secs * 1000) - (newDate.getTime() - startTime);
-
+		
+	*/
             for (i = 0; i < tracks.length / 2; i++) {
                 $.post("/pause", function(status) {
                     console.log(`status is ${status}`)
@@ -300,6 +334,12 @@
             }
         })
 
+	//////////////////////////////////////////////
+	//When the button that has the id "stop"
+	//this calls the stop functionality 
+	//in the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#stop').click(function() {
 		$("#song_info").text("Song Info");
 		$("#album_art").attr("src", "img/album/cd-cover-blank.png");
@@ -312,6 +352,8 @@
             i = 0;
         })
 
+	//Gets the tracks from the backend
+	//Funciton Author: Paul Hubbard
         $('#get_songs').click(get_tracks())
 
         //load the songs as soon as the page loads
@@ -319,6 +361,7 @@
 
 	//stop the music if the window is refreshed or 
 	//the user exits
+	// Function Author: Paul Hubbard
 	window.onbeforeunload = function(e){
 		e.preventDefault();
 
@@ -328,7 +371,8 @@
                 });
             }
 
-		e.returnValue = '';
+		e.returnValue = ''; //google needs a return value
+				    //thats why this is blank
 	}
 
     </script>
