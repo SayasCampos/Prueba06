@@ -316,6 +316,21 @@
 
         //load the songs as soon as the page loads
         window.onload = get_tracks;
+
+	//stop the music if the window is refreshed or 
+	//the user exits
+	window.onbeforeunload = function(e){
+		e.preventDefault();
+
+		for (i = 0; i < tracks.length / 2; i++) {
+                $.post(stopUrl, function(status) {
+                    console.log(`status is ${status}`)
+                });
+            }
+
+		e.returnValue = '';
+	}
+
     </script>
 
 </body>
