@@ -27,6 +27,7 @@ functional to the computer.
 This program utilizes three different libraries that must 
 be installed on linux in order for it to run. To install, 
 please run the following...
+
     sudo apt-get install libgstreamer-plugins-base1.0-dev
     sudo apt-get install libsdl2-dev
     sudo apt install libasound2-dev
