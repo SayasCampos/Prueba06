@@ -24,6 +24,13 @@ of immersion and control with an external device that is
 functional to the computer.
 
 ## Build and Run
+This program utilizes three different libraries that must 
+be installed on linux in order for it to run. To install, 
+please run the following...
+
+    sudo apt-get install libgstreamer-plugins-base1.0-dev
+    sudo apt-get install libsdl2-dev
+    sudo apt-get install libasound2-dev
 
 This program uses Rocket, which requires Rust nightly. To
 build rustadio, first enable nightly if not already enabled

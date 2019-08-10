@@ -78,7 +78,7 @@
                         <i class="fa fa-pause"></i>
                     </button>
                     </form>
-                    <button id="play" class="btn btn-secondary btn-lg" type="submit" value="play_victory">
+                    <button id="play" class="btn btn-secondary btn-lg" type="submit">
                         <i class="fa fa-play"></i>
                     </button>
                     <button id="stop" class="btn btn-secondary btn-lg">
@@ -130,13 +130,18 @@
         }
     </script>
     <script>
-	
-        var tracks = [];
-        var track_struct;
+	var timeOut; 				//this is set to pause and play the visuals 	
+					       //for an album
+	var startTime = 0;			//this is the time that you pressed play 
+	var wasPaused = 0;
+        var tracks = [];		        //this holds all of the track structs 
+        var track_struct;			//this holds a single track struct
         var url = '/';
-        var i = 0;
-        var timeDelay = 0;
-        const getUrl = "/get_songs";
+        var i = 0;				//this is a counter for the song art delay
+        var timeDelay = 0;			//this is the time delay in milliseconds
+	var currentTrack = 0;			//holds the position of the current track
+	//urls for the posts
+        const getUrl = "/get_songs";		
         const stopUrl = "/stop";
         const playUrl = "/play";
 
@@ -187,17 +192,27 @@
 	// Function Author: Paul Hubbard
 	//////////////////////////////////////////////
         function my_loop(time) {
-            setTimeout(function() {
+	    window.clearTimeout(timeOut);
+            timeOut = setTimeout(function() {
                 $("#song_info").text(tracks[i].title + ' by ' + tracks[i].artist);
 		new_cover = tracks[i].cover.replace("static/", "");
 		console.log(new_cover);
 		$("#album_art").attr("src", new_cover);
                 console.log(tracks[i]);
-                i++;
-                if (i < tracks.length) {
+		currentTrack = i;
+                if (i < tracks.length && wasPaused == 0) {
+		    console.log("wasPaused: " + wasPaused + " " + "time delay: " + ((timeDelay/1000)/60));
                     timeDelay = tracks[i].duration.secs * 1000;
+
                     my_loop(timeDelay);
                 }
+		//this is the case that the user pressed pause
+		else if(i < tracks.length && wasPaused > 0){
+		    console.log("wasPaused: " + wasPaused + " " + "time delay: " + ((timeDelay/1000)/60));
+			wasPaused = 0;
+			startTime = 0;
+			my_loop(timeDelay);
+		}
 		else{
 			//Send the stop at the end
 			//to clear the playlist 
@@ -208,6 +223,7 @@
 		}
 
             }, time)
+		i++;
         }
 
 	////////////////////////////////////////////////
@@ -227,6 +243,14 @@
             });
         }
 
+	///////////////////////////////////////////////
+	//get_tracks:
+	//	This gets all of the available tracks
+	//	the rust backend. The tracks are passed
+	//	to the front end as a JSON object that 
+	// 	holds an array of track structs. 
+	// Function Author: Paul Hubbard
+	///////////////////////////////////////////////
         function get_tracks() {
             empty_track_list();
             song_list.empty();
@@ -247,35 +271,79 @@
                         .text(' by ' + tracks[i].artist)
                         .appendTo(li);
                 });
+		i = 0;
             });
         }
 
+	///////////////////////////////////////////////
+	//When the button that has the id "load_songs"
+	//gets pressed, the postTracks function sends
+	//the playlist to the rust backend.
+	// Function Author: Paul Hubbard
+	///////////////////////////////////////////////
         $('#load_songs').click(function() {
             postTracks();
         })
 
+	//////////////////////////////////////////////
+	//When the button that has the id "play"
+	//gets pressed, this function calls 
+	//the play funcitonality on the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#play').click(function() {
-            for (i = 0; i < tracks.length / 2; i++) {
+		/*
+	    var myDate = new Date();
+	    console.log("wasPaused: " + wasPaused);
+	    startTime = myDate.getTime();
+		*/
+            for (j = 0; j < tracks.length / 2; j++) {
                 $.post(playUrl, function(status) {
                     console.log(`status is ${status}`)
                 });
             }
-            i = 0;
             my_loop(0);
             i = 0;
-
         })
-
+	
+	//////////////////////////////////////////////
+	//When the button that has the id "pause"
+	//this calls the pause functionality 
+	//in the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#pause').click(function() {
+		//this functionality was put in place to try
+		//and update the album info timer after a pause
+		//but I couldn't quite get it working.
+		//the same goes with the wasPaused functionality
+		//in the "#play" function.
+		/*
+		wasPaused = 1;
+	    	console.log("wasPaused from pause: " + wasPaused);
+	        console.log(tracks[currentTrack].duration.secs / 60);
+		clearTimeout(timeOut);
+		var newDate = new Date();
+		timeDelay = (tracks[currentTrack].duration.secs * 1000) - (newDate.getTime() - startTime);
+		
+	*/
             for (i = 0; i < tracks.length / 2; i++) {
                 $.post("/pause", function(status) {
                     console.log(`status is ${status}`)
                 });
             }
-		//my_loop(1000000000);
         })
 
+	//////////////////////////////////////////////
+	//When the button that has the id "stop"
+	//this calls the stop functionality 
+	//in the rust backend
+	// Function Author: Paul Hubbard
+	//////////////////////////////////////////////
         $('#stop').click(function() {
+		$("#song_info").text("Song Info");
+		$("#album_art").attr("src", "img/album/cd-cover-blank.png");
+		clearTimeout(timeOut);
             for (i = 0; i < tracks.length / 2; i++) {
                 $.post(stopUrl, function(status) {
                     console.log(`status is ${status}`)
@@ -284,10 +352,29 @@
             i = 0;
         })
 
+	//Gets the tracks from the backend
+	//Funciton Author: Paul Hubbard
         $('#get_songs').click(get_tracks())
 
         //load the songs as soon as the page loads
         window.onload = get_tracks;
+
+	//stop the music if the window is refreshed or 
+	//the user exits
+	// Function Author: Paul Hubbard
+	window.onbeforeunload = function(e){
+		e.preventDefault();
+
+		for (i = 0; i < tracks.length / 2; i++) {
+                $.post(stopUrl, function(status) {
+                    console.log(`status is ${status}`)
+                });
+            }
+
+		e.returnValue = ''; //google needs a return value
+				    //thats why this is blank
+	}
+
     </script>
 
 </body>
