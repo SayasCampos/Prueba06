@@ -73,7 +73,7 @@
                         <i class="fa fa-play"></i>
                     </button>
             <button id="home-screen" class="btn btn-secondary btn-lg" type="submit" onclick="relocate_home()">
-                <div class="icon"><span style="font-size: 3em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
+                <div class="icon"><span style="font-size: 6em; color: LightBlue;"><i class="fas fa-home"></i></span></div>
                 <h3 data-animate="fadeInUp" class="heading mb-3 text-400">Home</h3>
             </button>
                 </div>

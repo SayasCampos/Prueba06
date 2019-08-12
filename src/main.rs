@@ -6,6 +6,7 @@ extern crate rocket;
 extern crate serde_derive;
 extern crate rocket_contrib;
 
+// Rocket dependencies
 use rocket::request::FlashMessage;
 use rocket::Rocket;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
@@ -21,12 +22,28 @@ use rocket_contrib::json::Json;
 use rodio::Source;
 use std::cell::RefCell;
 
-//use qr2term::print_qr; // for later use when IP is no longer static
+// Used to generate a QR Code to website
+use qr2term::print_qr;
+
+// Radio dependencies
+use gst::prelude::*;
+use gst::*;
+extern crate gstreamer as gst;
+extern crate gstreamer_player as gst_player;
+extern crate glib;
+
+// Temp fix to kill radio threads
+use std::time::Duration;
+use std::thread;
+
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
 thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap())));
+thread_local!(static PLAYBIN: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap()));
 /////////////////end wrapped code
+
+
 
 /////////////////////////////////////////////
 ////MyTrack:
@@ -40,7 +57,15 @@ thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(
 struct MyTrack {
     track_list: Vec<Track>,
 }
+
 /*unused function
+
+///////////////////////////////////////////////////////////////////
+////change cover:
+////   This swaps out the displayed album cover image used
+////   by bootsrap with the current track
+////  Function Author: Christopher Teters
+
 fn change_cover<P: AsRef<Path>>(file_path: P) {
     //fn change_cover new<P: AsRef<Path>> (file_path: P) {
     let temp_img = Path::new("static/img/temp.png");
@@ -160,18 +185,39 @@ fn play() -> String {
     "success".to_string()
 }
 
-#[post("/radio")]
-fn radio() {
-    gst::init();
-    let mut playbin = gst::PlayBin::new("audio_player").expect("Couldn't create playbin");
-    //playbin.set_uri(&"http://ice3.somafm.com/groovesalad-128-mp3");
-    //playbin.set_uri(&"https://stream5.opb.org/radio_player.mp3");
-    //playbin.set_uri(&"http://ice1.somafm.com/u80s-128-mp3");
-    playbin.set_uri(&"http://stream.1a-webradio.de/saw-party/aac-48/radiosure-1a/stream.mp3");
 
-    playbin.play();
-    loop {}
+////////////////////////////////////////////////
+////radio:
+//// This function plays an internet radio
+//// station when given a correct  web address
+////    Parameters:
+////        uri: webaddress of internet radio
+////                  station.
+////
+//// Function Author:
+////    Christopher Teters
+///////////////////////////////////////////////
+#[post("/radio", data = "<uri>")]
+fn radio(uri: String) -> String{
+
+    //Different gstreamer state: Ready, Pause, Null, Playing
+    PLAYBIN.with(|radio_cell| {
+        radio_cell.borrow_mut().set_state(State::Ready).expect("Unable to set the pipeline to the `Ready` state");
+        radio_cell.borrow_mut().set_property("uri", &uri).unwrap();
+        radio_cell.borrow_mut().set_state(State::Playing).expect("Unable to set the pipeline to the `Playing` state");
+        /*
+        let playbin: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap());
+        playbin.borrow_mut().set_property("uri", &uri).unwrap();
+        playbin.borrow_mut().set_state(State::Playing).expect("Unable to set the pipeline to the `Playing` state");
+        radio_cell.swap(&playbin);
+        */
+    });
+
+    thread::sleep(Duration::from_millis(3000));
+    "success".to_string()
 }
+
+
 ////////////////////////////////////////////////
 ////load_songs:
 //// This function receives a playlist
@@ -260,6 +306,8 @@ fn rocket() -> Rocket {
 }
 
 fn main() {
+    gst::init().expect("gstreamer failed to load");
+
     // Example playlist entry
     /*
     let media_dir = Path::new("media/");
@@ -276,6 +324,7 @@ fn main() {
         Err(_) => println!("ERROR READING MUSIC LIBRARY"),
     }*/
 
-    //    print_qr("http://192.168.1.32:8000");
+    print_qr("http://192.168.1.32:8888").expect("Can't build QR Code with information given");
+
     rocket().launch();
 }
