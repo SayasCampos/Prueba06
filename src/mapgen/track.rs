@@ -26,7 +26,7 @@ impl Default for Track {
             year: 0,
             duration: Duration::new(0, 0),
             tags: Vec::new(),
-            cover: None,
+            cover: Some(Path::new("static/img/album/current-cover.png").to_path_buf()),
         }
     }
 }

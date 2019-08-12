@@ -7,7 +7,6 @@ extern crate serde_derive;
 extern crate rocket_contrib;
 
 // Rocket dependencies
-use rocket::request::FlashMessage;
 use rocket::Rocket;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 
@@ -28,14 +27,13 @@ use qr2term::print_qr;
 // Radio dependencies
 use gst::prelude::*;
 use gst::*;
+extern crate glib;
 extern crate gstreamer as gst;
 extern crate gstreamer_player as gst_player;
-extern crate glib;
 
 // Temp fix to kill radio threads
-use std::time::Duration;
 use std::thread;
-
+use std::time::Duration;
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
@@ -44,14 +42,12 @@ thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(
 thread_local!(static PLAYBIN: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap()));
 /////////////////end wrapped code
 
-
-
 /////////////////////////////////////////////
 ////MyTrack:
-////    This struct is used in order to pass 
+////    This struct is used in order to pass
 ////    a vector of tracks back and forth
 ////    between the front end and the back end
-////    as a JSON object. 
+////    as a JSON object.
 //// Function Author: Paul Hubbard
 /////////////////////////////////////////////
 #[derive(Serialize, Deserialize)]
@@ -82,7 +78,7 @@ fn change_cover<P: AsRef<Path>>(file_path: P) {
 }
 ///////////////////////////////////////////////////////////////////
 ////get_track_list:
-////   This returns a list of all available tracks in a random 
+////   This returns a list of all available tracks in a random
 ////   order.
 ////  Function Author: Max Smiley / Paul Hubbard
 ///////////////////////////////////////////////////////////////////
@@ -106,11 +102,11 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
 ///////////////////////////////////////////////////////////////////
 ////get_track:
 //// This gets a single track from the list of available tracks
-//// based on whatever track name gets passed in. 
-////    Parameters: 
+//// based on whatever track name gets passed in.
+////    Parameters:
 ////        track_name: This is the name of the track
 ////                    you wish to get from the available
-////                    tracks. 
+////                    tracks.
 ////    Function Author: Max Smiley / Paul Hubbard
 //////////////////////////////////////////////////////////////////
 fn get_track(track_name: String) -> mapgen::track::Track {
@@ -135,7 +131,7 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 /////////////////////////////////////////////////
 ////pause:
 ////    This pauses the current audio being played
-////    in the audio sink. 
+////    in the audio sink.
 ////       Function Author: Paul Hubbard
 /////////////////////////////////////////////////
 #[post("/pause")]
@@ -149,21 +145,22 @@ fn pause() {
 ////stop:
 //// This gets called by a post from the front end
 //// and it removes all of mp3's currently in the
-//// sink, while also stopping the audio. 
-////       Function Author: Paul Hubbard    
+//// sink, while also stopping the audio.
+////       Function Author: Paul Hubbard
 ///////////////////////////////////////////////
 #[post("/stop")]
 fn stop() {
     SINK.with(|sink_cell| {
         sink_cell.borrow_mut().stop();
-        let new_sink: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap()));
+        let new_sink: RefCell<rodio::Sink> =
+            RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap()));
         sink_cell.swap(&new_sink);
     });
 }
 ////////////////////////////////////////////////
 ////play:
-//// This function is called from a post coming 
-//// from the front end, and it starts the 
+//// This function is called from a post coming
+//// from the front end, and it starts the
 //// audio sink list, then returns a string
 //// telling the front end it was a success.
 ////        Function Author: Paul Hubbard
@@ -179,26 +176,38 @@ fn play() -> String {
     "success".to_string()
 }
 
-
 ////////////////////////////////////////////////
 ////radio:
 //// This function plays an internet radio
 //// station when given a correct  web address
+//// The function doesn't currently have a
+//// method for killing old threads, once a
+//// new thread has been started and should
+//// be considered incomplete until until
+//// async support is included.
 ////    Parameters:
 ////        uri: webaddress of internet radio
 ////                  station.
-////
 //// Function Author:
 ////    Christopher Teters
 ///////////////////////////////////////////////
 #[post("/radio", data = "<uri>")]
-fn radio(uri: String) -> String{
-
-    //Different gstreamer state: Ready, Pause, Null, Playing
+fn radio(uri: String) -> String {
     PLAYBIN.with(|radio_cell| {
-        radio_cell.borrow_mut().set_state(State::Ready).expect("Unable to set the pipeline to the `Ready` state");
+        radio_cell
+            .borrow_mut()
+            .set_state(State::Ready)
+            .expect("Unable to set the pipeline to the `Ready` state");
         radio_cell.borrow_mut().set_property("uri", &uri).unwrap();
-        radio_cell.borrow_mut().set_state(State::Playing).expect("Unable to set the pipeline to the `Playing` state");
+        radio_cell
+            .borrow_mut()
+            .set_state(State::Playing)
+            .expect("Unable to set the pipeline to the `Playing` state");
+        thread::sleep(Duration::from_millis(3500));
+        radio_cell
+            .borrow_mut()
+            .set_state(State::Ready)
+            .expect("Unable to set the pipeline to the `Ready` state");
         /*
         let playbin: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap());
         playbin.borrow_mut().set_property("uri", &uri).unwrap();
@@ -207,10 +216,8 @@ fn radio(uri: String) -> String{
         */
     });
 
-    thread::sleep(Duration::from_millis(3000));
     "success".to_string()
 }
-
 
 ////////////////////////////////////////////////
 ////load_songs:
@@ -218,11 +225,11 @@ fn radio(uri: String) -> String{
 //// as a JSON object from the frontend
 //// and loads the songs from their mp3
 //// source into a sink that will play
-//// the audio. 
+//// the audio.
 ////    Parameters:
 ////        my_track: This is the JSON object
-////                  that gets sent in from the 
-////                  user. 
+////                  that gets sent in from the
+////                  user.
 ////    Function Author:
 ////        Paul Hubbard
 /////////////////////////////////////////////////
@@ -256,38 +263,20 @@ fn load_songs(my_track: Json<MyTrack>) {
 //////////////////////////////////////////////////
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
-    let mut track_list: Vec<Track> = Vec::new();
-    track_list = get_track_list();
+    let track_list: Vec<Track> = get_track_list();
     let tracks: MyTrack = MyTrack { track_list };
     Json(tracks)
 }
 
 #[derive(Debug, Serialize)]
-struct Context<'a, 'b> {
-    msg: Option<(&'a str, &'b str)>,
-}
-
-impl<'a, 'b> Context<'a, 'b> {
-    pub fn err(msg: &'a str) -> Context<'static, 'a> {
-        Context {
-            msg: Some(("error", msg)),
-        }
-    }
-
-    pub fn raw(msg: Option<(&'a str, &'b str)>) -> Context<'a, 'b> {
-        Context { msg: msg }
-    }
+struct Context<'a> {
+    msg: Option<(&'a str)>,
 }
 
 #[get("/")]
-fn index(msg: Option<FlashMessage<'_, '_>>) -> Template {
-    Template::render(
-        "index",
-        &match msg {
-            Some(ref msg) => Context::raw(Some((msg.name(), msg.msg()))),
-            None => Context::raw(None),
-        },
-    )
+fn index() -> Template {
+    let context = Context { msg: None };
+    Template::render("index", context)
 }
 
 fn rocket() -> Rocket {
@@ -302,22 +291,6 @@ fn rocket() -> Rocket {
 
 fn main() {
     gst::init().expect("gstreamer failed to load");
-
-    // Example playlist entry
-    /*
-    let media_dir = Path::new("media/");
-    let music_lib = get_map(&media_dir);
-
-    match music_lib {
-        Ok(a) => {
-            println!("HashMap has {} values\n", a.len());
-            for b in a.keys() {
-                let track = a.get(b).unwrap();
-                println!("{}", track.title);
-            }
-        }
-        Err(_) => println!("ERROR READING MUSIC LIBRARY"),
-    }*/
 
     print_qr("http://192.168.1.32:8888").expect("Can't build QR Code with information given");
 
