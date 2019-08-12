@@ -37,7 +37,6 @@ use std::time::Duration;
 
 //////////////////basis for the wrapped code found here
 //////////////////https://stackoverflow.com/questions/19605132/is-it-possible-to-use-global-variables-in-rust
-thread_local!(static DEVICE: RefCell<rodio::Device> = RefCell::new(rodio::default_output_device().unwrap()));
 thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap())));
 thread_local!(static PLAYBIN: RefCell<gst::Element> = RefCell::new(gst::ElementFactory::make("playbin", None).unwrap()));
 /////////////////end wrapped code
@@ -55,11 +54,14 @@ struct MyTrack {
     track_list: Vec<Track>,
 }
 
+/*unused function
+
 ///////////////////////////////////////////////////////////////////
 ////change cover:
 ////   This swaps out the displayed album cover image used
 ////   by bootsrap with the current track
 ////  Function Author: Christopher Teters
+
 fn change_cover<P: AsRef<Path>>(file_path: P) {
     //fn change_cover new<P: AsRef<Path>> (file_path: P) {
     let temp_img = Path::new("static/img/temp.png");
@@ -76,6 +78,7 @@ fn change_cover<P: AsRef<Path>>(file_path: P) {
         println!("No art to load");
     }
 }
+*/
 ///////////////////////////////////////////////////////////////////
 ////get_track_list:
 ////   This returns a list of all available tracks in a random
@@ -109,6 +112,7 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
 ////                    tracks.
 ////    Function Author: Max Smiley / Paul Hubbard
 //////////////////////////////////////////////////////////////////
+/*unused function
 fn get_track(track_name: String) -> mapgen::track::Track {
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
@@ -128,6 +132,7 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 
     new_track
 }
+*/
 /////////////////////////////////////////////////
 ////pause:
 ////    This pauses the current audio being played
@@ -269,6 +274,7 @@ fn get_songs() -> Json<MyTrack> {
 }
 
 #[derive(Debug, Serialize)]
+
 struct Context<'a> {
     msg: Option<(&'a str)>,
 }
