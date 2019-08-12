@@ -12,8 +12,6 @@ use rocket_contrib::{serve::StaticFiles, templates::Template};
 
 use std::io::BufReader;
 use std::path::Path;
-use std::thread;
-use std::time::Duration;
 
 //MOVED DEFINITION TO EXTERNAL FILE track.rs - max
 mod mapgen;
@@ -33,17 +31,17 @@ thread_local!(static SINK: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(
 
 /////////////////////////////////////////////
 ////MyTrack:
-////    This struct is used in order to pass 
+////    This struct is used in order to pass
 ////    a vector of tracks back and forth
 ////    between the front end and the back end
-////    as a JSON object. 
+////    as a JSON object.
 //// Function Author: Paul Hubbard
 /////////////////////////////////////////////
 #[derive(Serialize, Deserialize)]
 struct MyTrack {
     track_list: Vec<Track>,
 }
-
+/*unused function
 fn change_cover<P: AsRef<Path>>(file_path: P) {
     //fn change_cover new<P: AsRef<Path>> (file_path: P) {
     let temp_img = Path::new("static/img/temp.png");
@@ -60,9 +58,10 @@ fn change_cover<P: AsRef<Path>>(file_path: P) {
         println!("No art to load");
     }
 }
+*/
 ///////////////////////////////////////////////////////////////////
 ////get_track_list:
-////   This returns a list of all available tracks in a random 
+////   This returns a list of all available tracks in a random
 ////   order.
 ////  Function Author: Max Smiley / Paul Hubbard
 ///////////////////////////////////////////////////////////////////
@@ -86,13 +85,14 @@ fn get_track_list() -> Vec<mapgen::track::Track> {
 ///////////////////////////////////////////////////////////////////
 ////get_track:
 //// This gets a single track from the list of available tracks
-//// based on whatever track name gets passed in. 
-////    Parameters: 
+//// based on whatever track name gets passed in.
+////    Parameters:
 ////        track_name: This is the name of the track
 ////                    you wish to get from the available
-////                    tracks. 
+////                    tracks.
 ////    Function Author: Max Smiley / Paul Hubbard
 //////////////////////////////////////////////////////////////////
+/*unused function
 fn get_track(track_name: String) -> mapgen::track::Track {
     let media_dir = Path::new("media/");
     let music_lib = get_map(&media_dir);
@@ -112,10 +112,11 @@ fn get_track(track_name: String) -> mapgen::track::Track {
 
     new_track
 }
+*/
 /////////////////////////////////////////////////
 ////pause:
 ////    This pauses the current audio being played
-////    in the audio sink. 
+////    in the audio sink.
 ////       Function Author: Paul Hubbard
 /////////////////////////////////////////////////
 #[post("/pause")]
@@ -129,21 +130,22 @@ fn pause() {
 ////stop:
 //// This gets called by a post from the front end
 //// and it removes all of mp3's currently in the
-//// sink, while also stopping the audio. 
-////       Function Author: Paul Hubbard    
+//// sink, while also stopping the audio.
+////       Function Author: Paul Hubbard
 ///////////////////////////////////////////////
 #[post("/stop")]
 fn stop() {
     SINK.with(|sink_cell| {
         sink_cell.borrow_mut().stop();
-        let new_sink: RefCell<rodio::Sink> = RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap()));
+        let new_sink: RefCell<rodio::Sink> =
+            RefCell::new(rodio::Sink::new(&rodio::default_output_device().unwrap()));
         sink_cell.swap(&new_sink);
     });
 }
 ////////////////////////////////////////////////
 ////play:
-//// This function is called from a post coming 
-//// from the front end, and it starts the 
+//// This function is called from a post coming
+//// from the front end, and it starts the
 //// audio sink list, then returns a string
 //// telling the front end it was a success.
 ////        Function Author: Paul Hubbard
@@ -177,11 +179,11 @@ fn radio() {
 //// as a JSON object from the frontend
 //// and loads the songs from their mp3
 //// source into a sink that will play
-//// the audio. 
+//// the audio.
 ////    Parameters:
 ////        my_track: This is the JSON object
-////                  that gets sent in from the 
-////                  user. 
+////                  that gets sent in from the
+////                  user.
 ////    Function Author:
 ////        Paul Hubbard
 /////////////////////////////////////////////////
@@ -215,8 +217,7 @@ fn load_songs(my_track: Json<MyTrack>) {
 //////////////////////////////////////////////////
 #[get("/get_songs")]
 fn get_songs() -> Json<MyTrack> {
-    let mut track_list: Vec<Track> = Vec::new();
-    track_list = get_track_list();
+    let track_list: Vec<Track> = get_track_list();
     let tracks: MyTrack = MyTrack { track_list };
     Json(tracks)
 }
@@ -234,7 +235,7 @@ impl<'a, 'b> Context<'a, 'b> {
     }
 
     pub fn raw(msg: Option<(&'a str, &'b str)>) -> Context<'a, 'b> {
-        Context { msg: msg }
+        Context { msg }
     }
 }
 
