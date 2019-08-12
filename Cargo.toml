@@ -24,11 +24,9 @@ glib = "0.8.1"
 gstreamer-player = "0.14.0"
 
 [dependencies.rocket_contrib]
-rocket_contrib = "0.4.2"
-default_features = false
-features = ["tera_templates", "serve", "json"]
-
-
+version = "0.4.2"
+default-features = false
+features = ["handlebars_templates", "tera_templates", "serve", "json"]
 
 
 

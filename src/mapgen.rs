@@ -33,9 +33,8 @@ pub fn get_map(dir: &Path) -> io::Result<HashMap<String, Track>> {
                 };
             } else {
                 let hm_opt = get_map(&path);
-                match hm_opt {
-                    Ok(hm_new) => hm.extend(hm_new),
-                    Err(_) => (),
+                if let Ok(hm_new) = hm_opt {
+                    hm.extend(hm_new)
                 }
             }
         }
