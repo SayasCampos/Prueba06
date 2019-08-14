@@ -45,6 +45,10 @@ To build or run an optimized version, use `cargo --release`.
 
 Run `cargo test` to do some simple testing.
 
+Run `cargo run` from the main rustadio folder to run the 
+program. The program will not function properly if you 
+run it from any of its sub-directories. 
+
 ## License
 
 This program is licensed under the "MIT License".  Please
